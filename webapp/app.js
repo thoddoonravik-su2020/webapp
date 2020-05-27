@@ -13,6 +13,23 @@ app.use(express.static(path.join(__dirname,'model')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
+//for home page
+app.get('/', (req,res)=>{
+    res.render('index.ejs')
+})
+
+//for login page
+app.get('/login', (req,res)=>{
+    res.render('login.ejs', {name: 'Joe'})
+})
+
+//for register page
+app.get('/register', (req,res)=>{
+    res.render('register.ejs')
+})
+
+
 const PORT = process.env.PORT || 3000;
 //port setting for server
 app.listen(3000, ()=> {
