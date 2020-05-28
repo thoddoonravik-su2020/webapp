@@ -3,7 +3,7 @@ const util = require('util');
 const mysql = require('mysql');
 
  const pool = mysql.createPool({
-   connectionLimit=15,   
+   connectionLimit: 10,   
    host     : 'localhost',
    user     : 'root',
    password : '12345',
@@ -21,7 +21,5 @@ const mysql = require('mysql');
 return;   
  });
 
- 
- app.listen(3000);
- connection.query=util.promisify(connection,query);
- module.exports = connection;
+ pool.query=util.promisify(pool.query);
+ module.exports = pool;
