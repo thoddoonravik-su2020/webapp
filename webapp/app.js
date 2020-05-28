@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const webPageRouter = require('./routes/route');
+const pageRouter = require('./routes/route');
 //const expressLayouts = require('express-ejs-layouts');
 
 //body parser
@@ -14,21 +14,21 @@ app.use(express.static(path.join(__dirname,'assets')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-//for redirecting errors
-app.use((req, res, next)=>{
-    const err = new Error('Page cannot be found !!');
-    err.status =404;
-    next(err);
-})
+// //for redirecting errors
+// app.use((req, res, next)=>{
+//     const err = new Error('Page cannot be found !!');
+//     err.status =404;
+//     next(err);
+// })
 
-//to handle errors
-app.use((req,res)=> {
-    res.status(err.status || 500);
-    res.send(err.message);
-})
+// //to handle errors
+// app.use((req,res)=> {
+//     res.status(err.status || 500);
+//     res.send(err.message);
+// })
 
 //for route
-app.use('/', webPageRouter);
+app.use('/', pageRouter);
 
 //for home page
 app.get('/', (req,res)=>{
@@ -37,13 +37,16 @@ app.get('/', (req,res)=>{
 
 //for login page
 app.get('/login', (req,res)=>{
-    res.render('login.ejs', {name: 'Joe'})
+    res.render('/')
 })
 
 //for register page
 app.get('/register', (req,res)=>{
-    res.render('register.ejs')
+    res.render('/');
 })
+
+
+
 
 
 const PORT = process.env.PORT || 3000;

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 //function for the user setup
 function User() {};
 
-user.prototype = {
+User.prototype = {
     //checks user is not an integer 
     find : function(user = null, callback){
         if(user){
@@ -30,7 +30,7 @@ user.prototype = {
             usrArray.push(body[prop]);
         }
 
-        let sqlQuery = `INSERT INTO users (firstname,lastname,password,email) VALUES(?,?,?)`;
+        let sqlQuery = `INSERT INTO users (firstname,lastname,password,email) VALUES(?,?,?,?)`;
 
         connection.query(sqlQuery, usrArray, function(err, lastname){
             if(err) throw console.error('error 2');
