@@ -34,7 +34,7 @@ input[type="text"], input[type="password"]
 {
     padding: 5px 25px;
     margin: auto;
-    min-width: 100px;
+    min-width: 150px;
     font-size: 1.05em;
     border: 1px ;
 }
