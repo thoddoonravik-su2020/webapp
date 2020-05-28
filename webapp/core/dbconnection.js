@@ -1,22 +1,27 @@
-
+const express = require('express');
 const util = require('util');
 const mysql = require('mysql');
 
- const connection = mysql.createConnection({
-   
+ const pool = mysql.createPool({
+   connectionLimit=15,   
    host     : 'localhost',
    user     : 'root',
-   password : 'Jokish@8588',
+   password : '12345',
    database : 'userdb'
  });
  var app = express();
  
- connection.connect(function(err){
- if(!err) {
-     console.log("Database connection established");  
- } else {
-     console.log("Error connecting to the database");  
+ pool.getConnection((err,connection)=>{
+ if(connection) {
+   connection.release();
  }
- });app.listen(3000);
+ if(err){
+  console.log("Error connecting to the database");  
+}
+return;   
+ });
+
+ 
+ app.listen(3000);
  connection.query=util.promisify(connection,query);
  module.exports = connection;

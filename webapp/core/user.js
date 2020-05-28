@@ -2,7 +2,7 @@ const connection = require('./dbconnection');
 const bcrypt = require('bcrypt');
 
 //function for the user setup
-function user() {};
+function User() {};
 
 user.prototype = {
     //checks user is not an integer 
@@ -27,7 +27,7 @@ user.prototype = {
 
         var usrArray = [];
         for(prop in body){
-            usrArray.push(prop);
+            usrArray.push(body[prop]);
         }
 
         let sqlQuery = `INSERT INTO users (firstname,lastname,password,email) VALUES(?,?,?)`;
@@ -42,7 +42,7 @@ user.prototype = {
     login : function(lastname,password,callback){
         this.find(lastname, function(user){
             if(user){
-                if(bcrypt.compareSync(password, user.password)){
+                if(bcrypt.compare(password, user.password)){
                     callback(user);
                     return;
                 }
@@ -51,4 +51,4 @@ user.prototype = {
         });
     }
 }
-module.exports = user;
+module.exports = User;
