@@ -12,12 +12,10 @@ const mysql = require('mysql');
  var app = express();
  
  pool.getConnection((err,connection)=>{
- if(connection) {
-   connection.release();
- }
- if(err){
-  console.log("Error connecting to the database");  
-}
+ if(err)
+ console.log("Cannot connect to the database !!");
+ if(connection)
+ connection.release();
 return;   
  });
 

@@ -1,15 +1,16 @@
 const express = require('express');
 const User = require('../core/user');
 const router = express.Router();
-const app = express();
+//const app = express();
 bodyParser = require('body-parser');
 
+
 //initialing the user 
-const user = new User();
+ const user = new User();
 
 
 //for home page
-app.get('/', (req,res,next)=>{
+router.get('/', (req,res,next)=>{
     res.render('index', {title:"Web Application"});
 })
 
@@ -17,6 +18,29 @@ app.get('/', (req,res,next)=>{
 router.get('/home', (req, res, next)=> {
     res.send('This is home page !! ')
 })
+
+//post registration
+router.post('/register',(req,res,next)=>{
+    let userDetails = {     
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password:req.body.password    
+    };
+    user.create(userDetails, function(lastId){
+        if(lastId){
+            res.send('You have logged in as '+ req.body.lastname);
+
+        }
+        else
+        {
+            console.log('Cannot register !!')
+        }
+    })
+});
+
+
+
 
 //for post login
 router.post('/login', (req, res, next)=>{
@@ -29,37 +53,6 @@ router.post('/login', (req, res, next)=>{
             res.send('Incorrect credentials');
         }
     })
-})
-
-//for login page
-app.get('/login', (req,res)=>{
-    res.render('login')
-})
-
-//for post registration
-router.post('/register', (res,req,next)=>
-{
-    let userDetails = {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password:req.body.password
-    };
-    user.create(userDetails, function(lastId){
-        if(lastId){
-            res.send('Hello '+userDetails.firstname);
-
-        }
-        else
-        {
-            console.log('Cannot login !!')
-        }
-    })
-})
-
-//for register page
-app.get('/register', (req,res)=>{
-    res.render('register')
-})
+});
 
 module.exports = router;

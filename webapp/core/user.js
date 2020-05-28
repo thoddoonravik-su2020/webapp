@@ -1,4 +1,4 @@
-const connection = require('./dbconnection');
+const pool = require('./dbconnection');
 const bcrypt = require('bcrypt');
 
 //function for the user setup
@@ -8,41 +8,46 @@ User.prototype = {
     //checks user is not an integer 
     find : function(user = null, callback){
         if(user){
-            var field = Number.isInteger(user) ?'id':'username';
+            var field = Number.isInteger(user) ?'id':'firstname';
 
         }
 
         //if the user is string then returns input_fields to enter values
         let sqlQuery = `SELECT * FROM users WHERE ${field} =?`;
-        connection.query(sqlQuery,user,function(err,result){
-            if(err) throw console.error('error');
+        pool.query(sqlQuery,user,function(err,result){
+            if(err) throw err;
             callback(result);
             
         });
     },
-    create: function(body, callback )
+    create:function(body,callback)
     {
-        let passwd = body.password;
-        body.password = bcrypt.hashSync(passwd,10);
+        try{ var password = body.password;
+            var salt = bcrypt.genSaltSync(10);
+            body.password = bcrypt.hashSync(password,salt);}
+            catch(e){
+                console.log('no password data');
+            }
+       
 
         var usrArray = [];
         for(prop in body){
             usrArray.push(body[prop]);
         }
 
-        let sqlQuery = `INSERT INTO users (firstname,lastname,password,email) VALUES(?,?,?,?)`;
+        let sqlQuery = `INSERT INTO users (firstname,lastname,email,password) VALUES(?,?,?,?)`;
 
-        connection.query(sqlQuery, usrArray, function(err, lastname){
-            if(err) throw console.error('error 2');
-            callback(lastname);
+        pool.query(sqlQuery, usrArray, function(err, lastId){
+            if(err) throw err;
+            callback(lastId);
             
         });
 
     },
-    login : function(lastname,password,callback){
-        this.find(lastname, function(user){
+    login : function(email,password,callback){
+        this.find(email, function(user){
             if(user){
-                if(bcrypt.compare(password, user.password)){
+                if(bcrypt.compareSync(password, user.password)){
                     callback(user);
                     return;
                 }
