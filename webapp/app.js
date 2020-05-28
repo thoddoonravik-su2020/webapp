@@ -7,16 +7,16 @@ const app = express();
 app.use(express.urlencoded({extended:false}));
 
 //static assests
-app.use(express.static(path.join(__dirname,'model')));
+app.use(express.static(path.join(__dirname,'assets')));
 
 //views
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'pug');
 
 
 //for home page
 app.get('/', (req,res)=>{
-    res.render('index.ejs')
+    res.render('index');
 })
 
 //for login page
