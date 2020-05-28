@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const webPageRouter = require('./routes/route');
 //const expressLayouts = require('express-ejs-layouts');
 
 //body parser
@@ -13,6 +14,21 @@ app.use(express.static(path.join(__dirname,'assets')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+//for redirecting errors
+app.use((req, res, next)=>{
+    const err = new Error('Page cannot be found !!');
+    err.status =404;
+    next(err);
+})
+
+//to handle errors
+app.use((req,res)=> {
+    res.status(err.status || 500);
+    res.send(err.message);
+})
+
+//for route
+app.use('/', webPageRouter);
 
 //for home page
 app.get('/', (req,res)=>{
