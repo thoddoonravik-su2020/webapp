@@ -5,7 +5,10 @@ const app = express();
 
 // for EJS
 app.use(expressLayouts);
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
+
+// for Body parser
+app.use(express.urlencoded({extended: false}));
 
 //for route
 app.use('/', require('./routes/route'));

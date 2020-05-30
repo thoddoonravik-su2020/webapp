@@ -1,23 +1,24 @@
-const express = require('express');
-const util = require('util');
-const mysql = require('mysql');
+const Sequelize = require('sequelize');
+const db = {}
+const sequelize = new Sequelize("userdb", "root", "12345", 
+{
 
- const pool = mysql.createPool({
-   connectionLimit: 10,   
-   host     : 'localhost',
-   user     : 'root',
-   password : '12345',
-   database : 'userdb'
- });
- var app = express();
- 
- pool.getConnection((err,connection)=>{
- if(err)
- console.log("Cannot connect to the database !!");
- if(connection)
- connection.release();
-return;   
- });
+  host:"localhost", dialet: "mysql", operatorsAliases: false,
 
- pool.query=util.promisify(pool.query);
- module.exports = pool;
+  pool:{
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle:10000
+  }
+}
+)
+
+
+
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
+
+
+module.exports = db;
