@@ -1,4 +1,6 @@
 const express = require ('express');
 const router = express.Router();
-router.get('/', (request, response)=> response.send('Welcome'));
+
+//any views routed to
+router.get('/', (request, response)=> response.render('welcomepage'));
 module.exports=router;
