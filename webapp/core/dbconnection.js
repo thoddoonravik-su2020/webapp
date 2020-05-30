@@ -3,7 +3,7 @@ const db = {}
 const sequelize = new Sequelize("userdb", "root", "12345", 
 {
 
-  host:"localhost", dialet: "mysql", operatorsAliases: false,
+  host:"localhost", dialect: "mysql", operatorsAliases: 0,
 
   pool:{
     max: 5,
@@ -18,6 +18,7 @@ const sequelize = new Sequelize("userdb", "root", "12345",
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+
 
 
 

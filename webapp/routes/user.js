@@ -1,34 +1,61 @@
 const express = require ('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+
+const User = require('../model/User');
 //Login Page
 router.get('/login', (request, response)=> response.render('loginpage'));
 //Register Page
-router.get('/register', (request, response)=> response.render('registerpage'));
-//Post Register
-router.post('/register', (req, res)=>{
-   const {firstname, lastname, email, password, password2} = req.body;
-   let errors =[];
-   //Password mismatch
-   if(password !== password2){
-       errors.push({msg: 'Entered passwords do not match !!'})
-   }
+ router.get('/register', (request, response)=> response.render('registerpage'));
+const cors = require('cors')
+const jwt = require('jsonwebtoken')
 
-   if(firstname == lastname){
-       errors.push({msg: 'Please enter a valid firstname and lastname'})
-   }
-   if(password.length < 8){
-       errors.push({msg: 'passwords cannot be less than 8 characters'})
-   }
-   if(errors.length > 0){
-    
-    res.render('registerpage', {
-        errors, firstname, lastname, email
-    })}
-   else
-   {
-    res.send('pass');
-     
-   }
-});
+router.use(cors())
+
+process.env.SECRET_KEY = 'secret'
+
+router.post('/register', (req, res) => {
+  const today = new Date()
+  const userData = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: req.body.password,  
+  }
+
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+   // TODO bcrypt
+    .then(user => {
+       if (!user) {
+         const newUser = new User({
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          email: req.body.email,
+          password: req.body.password,  
+         });
+       bcrypt.genSalt(10, (err, salt)=> bcrypt.hash(newUser.password, salt, (err, hash)=>
+       {
+         if(err) throw err;
+         newUser.password = hash;
+         newUser.save()
+         .then(user => {
+           res.redirect('/user/login')
+         })
+         .catch(err => console.log('oops something went wrong'))
+       }))
+
+
+       } else {
+        res.json({ error: 'User already exists' })
+      }
+    })
+    .catch(err => {
+      res.send('error: ' + err)
+    })
+})
 
 module.exports=router;
