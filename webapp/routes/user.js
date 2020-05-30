@@ -19,12 +19,15 @@ router.post('/register', (req, res)=>{
    if(password.length < 8){
        errors.push({msg: 'passwords cannot be less than 8 characters'})
    }
-   if(errors < 0){
-       res.send('pass');
-   }
+   if(errors.length > 0){
+    
+    res.render('registerpage', {
+        errors, firstname, lastname, email
+    })}
    else
    {
-       res.render('registerpage')
+    res.send('pass');
+     
    }
 });
 

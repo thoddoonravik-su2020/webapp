@@ -17,3 +17,6 @@ app.use('/user', require('./routes/user'));
 //PORT
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log(`Server listening on ${PORT}`));
+
+// sudo netstat -plunt |grep :3000
+//kill -9 processnuber
