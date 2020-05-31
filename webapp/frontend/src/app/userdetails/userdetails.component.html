@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="jumbotron mt-5">
+      <div class="col-sm-8 mx-auto">
+        <form (submit)="userdetails()">
+        <h1 class="text-center">PROFILE</h1>
+      </div>
+      <table class="table col-md-6 mx-auto">
+        <tr>
+          <td>Fist Name</td>
+          <td>{{ details?.firstname }}</td>
+        </tr>
+        <tr>
+          <td>Last Name</td>
+          <td>{{ details?.lastname }}</td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>{{ details?.email }}</td>
+        </tr>
+       
+      </table>
+      <button type="submit" class="btn btn-lg btn-primary btn-block">update</button>
+    </form>
+    </div>
+  </div>
+
