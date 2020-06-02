@@ -30,8 +30,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <button class="btn btn-custom right" type="submit" (click)="resetForm(bookForm)">Update</button>
-                        <button class="btn btn-custom right" type="button">Reset</button>
+                        <button class="btn btn-custom right" type="submit" (click)="resetForm(bookForm)">RESET</button>
+                        <button class="btn btn-custom right" type="button">ADD</button>
                     </div>
                 </div>
             </form>
@@ -53,12 +53,16 @@
                   <td></td><td></td>
                   <td>{{book.price}}</td>
                   <td>
-                      <a class="action-btn" (click)="onEdit(book)">
-                        <i class="material-icons">edit</i>
+                      <button><a class="action-btn" (click)="onEdit(book)">
+                        edit
                       </a>
+                    </button>
+                    
+                    <button>
                       <a class="action-btn" (click)="onDelete(book._id,bookForm)">
-                        <i class="material-icons">delete</i>
+                      delete
                       </a>
+                    </button>
                      
                     </td>
                 </tr>

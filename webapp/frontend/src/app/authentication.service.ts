@@ -120,12 +120,22 @@ export class AuthenticationService {
     })
   }
 
+  public putBookDetails(book : BookDetails): Observable<any> {
+    return this.http.put(`http://localhost:3000/books/seller/_id + `,book, {
+      headers: { Authorization: ` ${this.getToken()}` }
+    })
+  }
+
   // public postBook(user: BookDetails): Observable<any> {
   //   return this.http.post(`/books/seller`, user)
   // }
 
   public post(user: TokenPayload): Observable<any> {
     return this.http.put(`/users/register`, user)
+  }
+
+  deleteBook(_id:string){
+    return this.http.delete(`http://localhost:3000/books/seller `  +`/$_id`)
   }
 
   public logout(): void {
