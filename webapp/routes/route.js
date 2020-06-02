@@ -1,10 +1,10 @@
 const express = require ('express');
-const users = express.Router();
+const router = express.Router();
 
 //any views routed to
-usesrs.get('/', (request, response)=> response.render('welcomepage'));
+router.get('/', (request, response)=> response.render('welcomepage'));
 
 //Homepage
-users.get('/homepage', (req, res)=> res.render('homepage'));
+router.get('/homepage', (req, res)=> res.render('homepage'));
 
-module.exports=users;
+module.exports=router;

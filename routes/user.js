@@ -8,21 +8,24 @@ users.use(cors())
 
 process.env.SECRET_KEY = 'secret'
 
+
+//POST REGISTER
 users.post('/register', (req, res) => {
   const today = new Date()
   const userData = {
-    firstname: req.body.first_name,
-    lastname: req.body.last_name,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     email: req.body.email,
     password: req.body.password,
     created: today
   }
-
+  
   User.findOne({
     where: {
       email: req.body.email
     }
   })
+  
     //TODO bcrypt
     .then(user => {
       if (!user) {
@@ -44,7 +47,7 @@ users.post('/register', (req, res) => {
       res.send('error: ' + err)
     })
 })
-
+//POST LOGIN
 users.post('/login', (req, res) => {
   User.findOne({
     where: {
@@ -67,6 +70,7 @@ users.post('/login', (req, res) => {
     })
 })
 
+//GET PROFILE
 users.get('/profile', (req, res) => {
   var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
 
@@ -86,5 +90,6 @@ users.get('/profile', (req, res) => {
       res.send('error: ' + err)
     })
 })
+no use 
 
 module.exports = users

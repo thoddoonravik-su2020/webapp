@@ -1,22 +1,29 @@
-import { Component } from '@angular/core'
-import { AuthenticationService, UserDetails } from '../authentication.service'
+import { Component } from "@angular/core";
+import { AuthenticationService, TokenPayload } from "../authentication.service";
+import { Router } from "@angular/router";
 
 @Component({
-  templateUrl: './profile.component.html'
+  templateUrl: "./userdetails.component.html"
 })
-export class ProfileComponent {
-  details: UserDetails
+export class RegisterComponent {
+  credentials: TokenPayload = {
+    id: 0,
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: ""
+  };
 
-  constructor(private auth: AuthenticationService) {}
+  constructor(private auth: AuthenticationService, private router: Router) {}
 
-  ngOnInit() {
-    this.auth.profile().subscribe(
-      user => {
-        this.details = user
+  register() {
+    this.auth.register(this.credentials).subscribe(
+      () => {
+        this.router.navigateByUrl("/profile");
       },
       err => {
-        console.error(err)
+        console.error(err);
       }
-    )
+    );
   }
 }

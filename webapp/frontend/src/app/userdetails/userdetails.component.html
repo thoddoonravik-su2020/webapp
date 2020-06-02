@@ -1,26 +1,22 @@
-<div class="container">
-    <div class="jumbotron mt-5">
-      <div class="col-sm-8 mx-auto">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mt-5 mx-auto">
         <form (submit)="userdetails()">
-        <h1 class="text-center">PROFILE</h1>
+          <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+          <div class="form-group">
+            <label for="name">First name</label>
+            <input type="text" class="form-control" name="first_name" placeholder="Enter your first name" [(ngModel)]="credentials.firstname">
+          </div>
+          <div class="form-group">
+            <label for="name">Last name</label>
+            <input type="text" class="form-control" name="last_name" placeholder="Enter your lastname name" [(ngModel)]="credentials.lastname">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password"   required minlength="8" placeholder="Password" [(ngModel)]="credentials.password">
+          </div>
+          <button type="submit" class="btn btn-lg btn-primary btn-block">Register!</button>
+        </form>
       </div>
-      <table class="table col-md-6 mx-auto">
-        <tr>
-          <td>Fist Name</td>
-          <td>{{ details?.firstname }}</td>
-        </tr>
-        <tr>
-          <td>Last Name</td>
-          <td>{{ details?.lastname }}</td>
-        </tr>
-        <tr>
-          <td>Email</td>
-          <td>{{ details?.email }}</td>
-        </tr>
-       
-      </table>
-      <button type="submit" class="btn btn-lg btn-primary btn-block">update</button>
-    </form>
     </div>
   </div>
-

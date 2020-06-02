@@ -26,6 +26,33 @@ export interface TokenPayload {
   password: string
 }
 
+//is it right?
+
+export interface BookDetails{
+  userid:number,
+	isbn:string,
+	title:string,
+	authors:string,
+	quantity:number,
+	price:number
+  
+}
+
+
+// interface BookResponse {
+//   token: string
+// }
+
+// export interface BookResponse {
+//   userid:number,
+// 	isbn:string,
+// 	title:string,
+// 	authors:string,
+// 	quantity:number,
+// 	price:number
+// }
+
+
 @Injectable()
 export class AuthenticationService {
   private token: string
@@ -45,6 +72,19 @@ export class AuthenticationService {
   }
 
   public getUserDetails(): UserDetails {
+    const token = this.getToken()
+    let payload
+    if (token) {
+      payload = token.split('.')[1]
+      payload = window.atob(payload)
+      return JSON.parse(payload)
+    } else {
+      return null
+    }
+  }
+
+
+  public getBookDetails(): BookDetails {
     const token = this.getToken()
     let payload
     if (token) {
@@ -91,10 +131,15 @@ export class AuthenticationService {
   }
 
 
-  public userdetails(): Observable<any> {
-    return this.http.get(`/users/profile/account`, {
+  public seller(): Observable<any> {
+    return this.http.get(`/seller/book`, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
+  }
+
+
+  public post(user: TokenPayload): Observable<any> {
+    return this.http.put(`/users/register`, user)
   }
 
   public logout(): void {

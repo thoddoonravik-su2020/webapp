@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mt-5 mx-auto">
+            <form (submit)="seller()">
+                <h1 class="h3 mb-3 font-weight-normal">Book Details</h1>
+                <div class="form-group">
+                    <label for="isbn">ISBN</label>
+                    <input type="text" class="form-control" name="isbn" placeholder="Enter ISBN"
+                        [(ngModel)]="bookDetails.isbn">
+                </div>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter Title"
+                        [(ngModel)]="bookDetails.title">
+                </div>
+                <div class="form-group">
+                    <label for="authors">Authors</label>
+                    <input type="text" class="form-control" name="authors" placeholder="Enter Authors"
+                        [(ngModel)]="bookDetails.authors">
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" class="form-control" name="quantity" placeholder="Enter Quantity"
+                        [(ngModel)]="bookDetails.quantity">
+                </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" name="price" placeholder="Enter Price"
+                        [(ngModel)]="bookDetails.price">
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button class="btn btn-custom right" type="button"
+                            (click)="resetForm(employeeForm)">Update</button>
+                        <button class="btn btn-custom right" type="submit" [disabled]="!employeeForm.valid">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>  
+
+<div >
+    <div class="col-md-6 mt-5 mx-auto">
+        <table class="responsive-table highlight">
+            <thead>
+              <tr>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tr *ngFor="let book of authService.bookDetails">
+              <td>{{book.quantity}}</td>
+              <td>{{book.price}}</td>
+             <td>
+                  <a class="action-btn" (click)="onEdit(emp)">
+                    <i class="material-icons">edit</i>
+                  </a>
+                  <a class="action-btn" (click)="onDelete(emp._id,employeeForm)">
+                    <i class="material-icons">delete</i>
+                  </a>
+                </td>
+            </tr>
+          </table>
+    </div>
+
+
+</div>

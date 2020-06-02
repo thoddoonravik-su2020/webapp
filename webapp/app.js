@@ -4,6 +4,9 @@ var bodyParser = require('body-parser')
 var app = express()
 var port = process.env.PORT || 3000
 
+
+
+
 app.use(bodyParser.json())
 app.use(cors())
 app.use(
@@ -13,9 +16,15 @@ app.use(
 )
 
 var Users = require('./routes/user')
+var Book = require('./routes/book')
+
+
 
 app.use('/users', Users)
+app.use('/books', Book)
 
 app.listen(port, function() {
   console.log('Server is running on port: ' + port)
 })
+
+module.exports = app;
