@@ -16,10 +16,10 @@
       <li *ngIf="!auth.isLoggedIn()" class="nav-item">
         <a class="nav-link" routerLink="/register">Register</a>
       </li>
-      <li *ngIf="!auth.isLoggedIn()" class="nav-item">
+      <li *ngIf="auth.isLoggedIn()" class="nav-item">
         <a class="nav-link" routerLink="/seller">Seller</a>
       </li>
-      <li *ngIf="!auth.isLoggedIn()" class="nav-item">
+      <li *ngIf="auth.isLoggedIn()" class="nav-item">
         <a class="nav-link" routerLink="/buyer">Buyer</a>
       </li>
       <li *ngIf="auth.isLoggedIn()" class="nav-item">

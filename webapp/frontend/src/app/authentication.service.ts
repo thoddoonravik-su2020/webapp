@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { Router } from '@angular/router'
 
+
+
 export interface UserDetails {
   id: number
   first_name: string
@@ -38,24 +40,13 @@ export interface BookDetails{
   
 }
 
-
-// interface BookResponse {
-//   token: string
-// }
-
-// export interface BookResponse {
-//   userid:number,
-// 	isbn:string,
-// 	title:string,
-// 	authors:string,
-// 	quantity:number,
-// 	price:number
-// }
-
-
 @Injectable()
 export class AuthenticationService {
   private token: string
+  bookDetails: {
+    
+  }
+  
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -84,16 +75,8 @@ export class AuthenticationService {
   }
 
 
-  public getBookDetails(): BookDetails {
-    const token = this.getToken()
-    let payload
-    if (token) {
-      payload = token.split('.')[1]
-      payload = window.atob(payload)
-      return JSON.parse(payload)
-    } else {
-      return null
-    }
+  public getBookDetails() {
+    return this.http.get('http://localhost:3000/books/seller')
   }
 
   public isLoggedIn(): boolean {
@@ -131,12 +114,15 @@ export class AuthenticationService {
   }
 
 
-  public seller(): Observable<any> {
-    return this.http.get(`/seller/book`, {
+  public seller(book : BookDetails): Observable<any> {
+    return this.http.post(`http://localhost:3000/books/seller`,book, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
 
+  // public postBook(user: BookDetails): Observable<any> {
+  //   return this.http.post(`/books/seller`, user)
+  // }
 
   public post(user: TokenPayload): Observable<any> {
     return this.http.put(`/users/register`, user)

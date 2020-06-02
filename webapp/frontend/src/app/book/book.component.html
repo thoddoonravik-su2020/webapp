@@ -30,39 +30,38 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <button class="btn btn-custom right" type="button"
-                            (click)="resetForm(employeeForm)">Update</button>
-                        <button class="btn btn-custom right" type="submit" [disabled]="!employeeForm.valid">Add</button>
+                        <button class="btn btn-custom right" type="submit" (click)="resetForm(bookForm)">Update</button>
+                        <button class="btn btn-custom right" type="button">Reset</button>
                     </div>
                 </div>
             </form>
         </div>
+        <div class="col s9">
+            <table class="responsive-table highlight">
+                <thead>
+                  <tr>
+                    <th>Book Title</th>
+                    <th>Book Quantity</th>
+                    <th>Book Price</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tr *ngFor="let book of books">
+                  <td>{{book.title}}</td>
+                  <td></td><td></td>
+                  <td>{{book.quantity}}</td>
+                  <td></td><td></td>
+                  <td>{{book.price}}</td>
+                  <td>
+                      <a class="action-btn" (click)="onEdit(book)">
+                        <i class="material-icons">edit</i>
+                      </a>
+                      <a class="action-btn" (click)="onDelete(book._id,bookForm)">
+                        <i class="material-icons">delete</i>
+                      </a>
+                     
+                    </td>
+                </tr>
+              </table>
     </div>
 </div>  
-
-<div >
-    <div class="col-md-6 mt-5 mx-auto">
-        <table class="responsive-table highlight">
-            <thead>
-              <tr>
-                <th>Quantity</th>
-                <th>Price</th>
-            </tr>
-            </thead>
-            <tr *ngFor="let book of authService.bookDetails">
-              <td>{{book.quantity}}</td>
-              <td>{{book.price}}</td>
-             <td>
-                  <a class="action-btn" (click)="onEdit(emp)">
-                    <i class="material-icons">edit</i>
-                  </a>
-                  <a class="action-btn" (click)="onDelete(emp._id,employeeForm)">
-                    <i class="material-icons">delete</i>
-                  </a>
-                </td>
-            </tr>
-          </table>
-    </div>
-
-
-</div>

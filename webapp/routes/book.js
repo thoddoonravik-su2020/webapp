@@ -65,28 +65,6 @@ users.get('/seller/:id', (req, res) => {
 
 
 
-//     //POST
-// users.put('/seller:id', (req, res) => {
-//     const today = new Date()
-//     const sellerData = {
-//       userid: req.body.userid,
-//       isbn: req.body.isbn,
-//       title: req.body.title,
-//       authors: req.body.authors,
-//       publication_date: today,
-//       quantity: req.body.quantity,
-//       PRICE: req.body.price,    
-//     }
-//     Book.findByPk({
-//         where: {
-//           id: req.params.id
-//         }
-//       })
-//       const book = Book.build(sellerData);
-//       book.update()
-// })
-
-
 //UPDATE BOOKS
 users.put('/seller/:id', function (req, res, next) {
     Book.update(

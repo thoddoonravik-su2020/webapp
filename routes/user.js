@@ -90,6 +90,5 @@ users.get('/profile', (req, res) => {
       res.send('error: ' + err)
     })
 })
-no use 
 
 module.exports = users

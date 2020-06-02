@@ -5,18 +5,16 @@ var app = express()
 var port = process.env.PORT || 3000
 
 
-
-
 app.use(bodyParser.json())
-app.use(cors())
+app.use(cors({origin: 'http://localhost:4200'}));
 app.use(
   bodyParser.urlencoded({
     extended: false
   })
 )
 
-var Users = require('./routes/user')
-var Book = require('./routes/book')
+var Users = require('./routes/user.js')
+var Book = require('./routes/book.js')
 
 
 
