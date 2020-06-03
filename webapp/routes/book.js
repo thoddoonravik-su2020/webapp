@@ -73,11 +73,9 @@ users.put('/seller/:id', function (req, res, next) {
  
    })
 
-   //DELETE BOOKS
-   users.put('/seller/:id', function (req, res, next) {
-    Book.destroy(
-      req.params.id
-    )  
-})
-    
+  //  //DELETE BOOKS
+  //  users.put('/seller/:id', function (req, res, next) {
+  //   Book.destroy(
+  //     req.params.id
+      
 module.exports = users
