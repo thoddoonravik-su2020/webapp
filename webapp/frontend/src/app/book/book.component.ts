@@ -41,6 +41,7 @@ export class BookComponent {
 
   onEdit(book: BookDetails){
     this.bookDetails =book;
+
   }
 
   viewBookDetails(){
@@ -65,6 +66,5 @@ export class BookComponent {
   }
   resetForm(form?: NgForm){
     console.log("a")
-  }
-
+}
 }
