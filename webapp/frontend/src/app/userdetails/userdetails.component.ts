@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { AuthenticationService, TokenPayload } from "../authentication.service";
 import { Router } from "@angular/router";
+import { UserDetails } from 'src/authentication-service';
 
 @Component({
   templateUrl: "./userdetails.component.html"
@@ -14,16 +15,21 @@ export class UserdetailsComponent {
     password: ""
   };
 
-  constructor(private auth: AuthenticationService, private router: Router) {}
+  users : TokenPayload[];
 
-  UpdateUseDetails() {
-    this.auth.register(this.credentials).subscribe(
-      () => {
-        this.router.navigateByUrl("/profile");
+  constructor(private auth: AuthenticationService, private router: Router) {
+    this.auth.profile().subscribe(
+      user => {
+        this.credentials = user
       },
       err => {
-        console.error(err);
+        console.error(err)
       }
-    );
+    )
+  }
+
+  userEdit(user: UserDetails){
+    this.credentials =user;
+   
   }
 }

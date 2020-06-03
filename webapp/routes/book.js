@@ -37,10 +37,9 @@ users.post('/seller', (req, res) => {
     if(req.body.quantity > 0 && req.body.quantity < 999)
      
     {
-      const result = (resp) => { res.status(200); res.json(resp)}
-
-    const book = Book.build(sellerData);
-    book.save().then(result);
+            const result = (resp) => { res.status(200); res.json(resp)}
+            const book = Book.build(sellerData);
+            book.save().then(result);
        }
     else
     {
@@ -83,6 +82,14 @@ users.put('/seller/:id', function (req, res, next) {
      promise.then(result)
  
    })
+
+    //  //DELETE BOOKS
+   users.delete('http://localhost:3000/books/seller/:id', function (req, res, next) {
+     console.log('deleting')
+     debugger
+    Book.destroy();
+   }
+   )
 
 
 module.exports = users
