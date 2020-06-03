@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 @Component({
   templateUrl: "./userdetails.component.html"
 })
-export class RegisterComponent {
+export class UserdetailsComponent {
   credentials: TokenPayload = {
     id: 0,
     first_name: "",
@@ -16,7 +16,7 @@ export class RegisterComponent {
 
   constructor(private auth: AuthenticationService, private router: Router) {}
 
-  register() {
+  UpdateUseDetails() {
     this.auth.register(this.credentials).subscribe(
       () => {
         this.router.navigateByUrl("/profile");
