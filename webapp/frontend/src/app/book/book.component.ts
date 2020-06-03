@@ -70,5 +70,7 @@ export class BookComponent {
     this.auth.putBookDetails(this.bookDetails).subscribe(X=>{alert('Successfully updated !!');
     this.viewBookDetails();   
   });
-    }
+
+  }
+
 }
