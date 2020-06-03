@@ -54,6 +54,7 @@ export class BookComponent {
   }
 
   onDelete(book, form:NgForm){
+    console.log('in book.comp ondelete')
     if(confirm('Are you sure to delete the book?')==true){
       this.auth.deleteBook(book).subscribe();
       this.viewBookDetails;     

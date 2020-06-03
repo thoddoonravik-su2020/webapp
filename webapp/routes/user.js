@@ -53,7 +53,7 @@ users.post('/register', (req, res) => {
 
 
 //POST
-users.put('/register', (req, res) => {
+users.put('/profile', (req, res) => {
   const today = new Date()
   const userData = {
     firstname: req.body.firstname,
