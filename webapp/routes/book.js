@@ -68,10 +68,20 @@ users.get('/seller/:id', (req, res) => {
 //UPDATE BOOKS
 users.put('/seller/:id', function (req, res, next) {
     Book.update(
-      {userid: req.params.id},
+      {userid: req.params.id,
+        isbn: req.body.isbn,
+        title: req.body.title,
+        authors: req.body.authors,
+        quantity: req.body.quantity,
+        PRICE: req.body.price, },
       {returning: true,
          where: {
-             isbn: req.body.isbn
+          userid: req.body.userid,
+          isbn: req.body.isbn,
+          title: req.body.title,
+          authors: req.body.authors,
+          quantity: req.body.quantity,
+          PRICE: req.body.price, 
             } }
     )
    

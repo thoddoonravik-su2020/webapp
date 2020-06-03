@@ -34,17 +34,12 @@ export class BookComponent {
   
 
   seller(form: NgForm) {
-    if(form.value._id ==" "){
+
     this.auth.seller(this.bookDetails).subscribe();
     this.viewBookDetails();                                                             
-  }
-  else{
-  alert('try again')
-
-  }
 }
 
-  OnEdit(book: BookDetails){
+  onEdit(book: BookDetails){
     this.auth.bookDetails =book;
   }
 
@@ -55,7 +50,8 @@ export class BookComponent {
     });
   }
 
-  OnDelete(_id:string, form:NgForm){
+  onDelete(_id:string, form:NgForm){
+    console.log('delete')
     if(confirm('Are you sure to delete the book?')==true){
       this.auth.deleteBook(_id).subscribe();
       this.viewBookDetails;
