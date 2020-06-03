@@ -14,28 +14,38 @@ process.env.SECRET_KEY = 'secret'
 
 //GET REQUEST FOR BOOKS localhost3000:/seller/books
 users.get('/seller',(req,res)=>{
-    // console.log('hello');
+    
     const book = Book.findAll();
-    const result = (resp) => { res.status(200); res.json(resp)}
-    book.then (result)
+       const result = (resp) => { res.status(200); res.json(resp)}
+    book.then(result)
 } )
-
-
 
 //POST
 users.post('/seller', (req, res) => {
     const today = new Date()
     const sellerData = {
+      id:req.body.id,
       userid: req.body.userid,
       isbn: req.body.isbn,
       title: req.body.title,
       authors: req.body.authors,
       publication_date: today,
       quantity: req.body.quantity,
-      PRICE: req.body.price,    
+      PRICE: req.body.PRICE,    
     }
+    console.log(sellerData)
+    if(req.body.quantity > 0 && req.body.quantity < 999)
+     
+    {
+      const result = (resp) => { res.status(200); res.json(resp)}
+
     const book = Book.build(sellerData);
-    book.save()
+    book.save().then(result);
+       }
+    else
+    {
+     console.log('quantity should be betweeon 0 & 999 and price should be between 0.1 & 9999.99');
+    }
     // const result = (resp) => { res.status(200); res.json(resp)}
     // book.then (result)
 })
@@ -45,7 +55,6 @@ users.post('/seller', (req, res) => {
 //GET PROFILE 
 users.get('/seller/:id', (req, res) => {
     // var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
-  
     Book.findOne({
       where: {
         id: req.params.id
@@ -68,14 +77,12 @@ users.get('/seller/:id', (req, res) => {
 //UPDATE BOOKS
 users.put('/seller/:id', function (req, res, next) {
     const cont = Object.assign({},req.body)
-    console.log(cont)
-    Book.update(cont, {where :{id : cont.id}});
+        // Book.update(cont, {where :{id : cont.id}});
+    const promise =Book.update(cont, {where :{id : cont.id}});
+    const result = (resp) => { res.status(200); res.json(resp)}
+     promise.then(result)
  
    })
 
-  //  //DELETE BOOKS
-  //  users.put('/seller/:id', function (req, res, next) {
-  //   Book.destroy(
-  //     req.params.id
-      
+
 module.exports = users

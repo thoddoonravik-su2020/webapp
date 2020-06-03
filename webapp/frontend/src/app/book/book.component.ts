@@ -10,12 +10,13 @@ declare var M: any;
 export class BookComponent {
 
   bookDetails: BookDetails = {
+   id:0,
   userid:0, 
 	isbn:'',
 	title:'',
 	authors:'',
 	quantity:0,
-	price:0
+	PRICE:0
   }
 
   books : BookDetails[];
@@ -34,9 +35,10 @@ export class BookComponent {
   
 
   seller(form: NgForm) {
-
-    this.auth.seller(this.bookDetails).subscribe();
-    this.viewBookDetails();                                                             
+    this.auth.seller(this.bookDetails).subscribe(x=>{
+      alert("added")
+      this.viewBookDetails();                                                             
+    });
 }
 
   onEdit(book: BookDetails){
@@ -46,25 +48,27 @@ export class BookComponent {
 
   viewBookDetails(){
     this.auth.getBookDetails().subscribe((res)=>{
-      this.books =res as BookDetails[];
+      this.books =res as BookDetails[] ;
       
     });
   }
 
-  onDelete(_id:string, form:NgForm){
-    console.log('delete')
-    if(confirm('Are you sure to delete the book?')==true){
-      this.auth.deleteBook(_id).subscribe();
-      this.viewBookDetails;
-      M.toast({html: 'Deleted Successfully !! ', classes: 'rounded'})
+
+
+  onDelete(book, form:NgForm){
+   if(confirm('Are you sure to delete the book?')==true){
+      this.auth.deleteBook(book).subscribe();
+      this.viewBookDetails;     
     }
   }
 
   ngOnInit(){
-    this.resetForm()
+
     
   }
   resetForm(form?: NgForm){
-    console.log("a")
-}
+    this.auth.putBookDetails(this.bookDetails).subscribe(X=>{alert('Successfully updated !!');
+    this.viewBookDetails();   
+  });
+    }
 }

@@ -31,12 +31,13 @@ export interface TokenPayload {
 //is it right?
 
 export interface BookDetails{
+   id:number,
   userid:number,
 	isbn:string,
 	title:string,
 	authors:string,
 	quantity:number,
-	price:number
+	PRICE:number
   
 }
 
@@ -44,6 +45,13 @@ export interface BookDetails{
 export class AuthenticationService {
   private token: string
   bookDetails: {
+    id:number,
+    userid:number,
+    isbn:string,
+    title:string,
+    authors:string,
+    quantity:number,
+    PRICE:number
     
   }
   
@@ -112,16 +120,17 @@ export class AuthenticationService {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
+  
 
 
   public seller(book : BookDetails): Observable<any> {
-    return this.http.post(`http://localhost:3000/books/seller`,book, {
+    return this.http.post('http://localhost:3000/books/seller/',book, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
 
   public putBookDetails(book : BookDetails): Observable<any> {
-    return this.http.put(`http://localhost:3000/books/seller/_id + `,book, {
+    return this.http.put(`http://localhost:3000/books/seller/`+book.id,book, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
@@ -134,8 +143,11 @@ export class AuthenticationService {
     return this.http.put(`/users/register`, user)
   }
 
-  deleteBook(_id:string){
-    return this.http.delete(`http://localhost:3000/books/seller `  +`/$_id`)
+  deleteBook(book : BookDetails): Observable<any>{
+    return this.http.delete(`http://localhost:3000/books/seller`+book.id, {
+      headers: { Authorization: ` ${this.getToken()}` }   
+
+    })
   }
 
   public logout(): void {

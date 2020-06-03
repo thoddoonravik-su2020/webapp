@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 mt-5 mx-auto">
-            <form (submit)="seller()">
+            <form (submit)="seller()" (button)="putBookDetails()">
                 <h1 class="h3 mb-3 font-weight-normal">Book Details</h1>
                 <div class="form-group">
                     <label for="isbn">ISBN</label>
@@ -25,50 +25,18 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="PRICE">Price</label>
-                    <input type="number" class="form-control" name="PRICE" placeholder="Enter Price"
-                    required minlength="0.1" maxlength="9999.99"   [(ngModel)]="bookDetails.PRICE">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" name="price" placeholder="Enter Price"
+                    required minlength="0.1" maxlength="9999.99"   [(ngModel)]="bookDetails.price">
                    
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <button class="btn btn-custom right" type="button" (click)="resetForm()">UPDATE</button>
+                        <button class="btn btn-custom right" type="button">UPDATE</button>
                         <button class="btn btn-custom right" type="submit">ADD</button>
            
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col s9">
-            <table class="responsive-table highlight">
-                <thead>
-                  <tr>
-                    <th>Book Title</th>
-                    <th>Book Quantity</th>
-                    <th>Book Price</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tr *ngFor="let book of books">
-                  <td>{{book.title}}</td>
-                  <td></td><td></td>
-                  <td>{{book.quantity}}</td>
-                  <td></td><td></td>
-                  <td>{{book.PRICE}}</td>
-                  <td>
-                      <button><a class="action-btn" (click)="onEdit(book)">
-                        edit
-                      </a>
-                    </button>
-                    
-                    <button>
-                      <a class="action-btn" (click)="onDelete(book.id)">
-                        delete
-                      </a>
-                    </button>
-                     
-                    </td>
-                </tr>
-              </table>
-    </div>
-</div>  
+       <h1>cart</h1>
