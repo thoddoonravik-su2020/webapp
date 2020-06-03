@@ -40,7 +40,7 @@ export class BookComponent {
 }
 
   onEdit(book: BookDetails){
-    this.auth.bookDetails =book;
+    this.bookDetails =book;
   }
 
   viewBookDetails(){
@@ -64,16 +64,7 @@ export class BookComponent {
     
   }
   resetForm(form?: NgForm){
-    if(form)
-    form.reset();
-    this.auth.bookDetails={
-      userid:0, 
-      isbn:'',
-      title:'',
-      authors:'',
-      quantity:0,
-      price:0
-    }
+    console.log("a")
   }
 
 }
