@@ -67,14 +67,10 @@ users.get('/seller/:id', (req, res) => {
 
 //UPDATE BOOKS
 users.put('/seller/:id', function (req, res, next) {
-    Book.update(
-      {userid: req.params.id},
-      {returning: true,
-         where: {
-             isbn: req.body.isbn
-            } }
-    )
-   
+    const cont = Object.assign({},req.body)
+    console.log(cont)
+    Book.update(cont, {where :{id : cont.id}});
+ 
    })
 
    //DELETE BOOKS

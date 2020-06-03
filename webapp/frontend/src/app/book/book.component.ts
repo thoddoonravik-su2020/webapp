@@ -34,18 +34,14 @@ export class BookComponent {
   
 
   seller(form: NgForm) {
-    if(form.value._id ==" "){
+
     this.auth.seller(this.bookDetails).subscribe();
     this.viewBookDetails();                                                             
-  }
-  else{
-  alert('try again')
-
-  }
 }
 
-  OnEdit(book: BookDetails){
-    this.auth.bookDetails =book;
+  onEdit(book: BookDetails){
+    this.bookDetails =book;
+   
   }
 
   viewBookDetails(){
@@ -68,16 +64,8 @@ export class BookComponent {
     
   }
   resetForm(form?: NgForm){
-    if(form)
-    form.reset();
-    this.auth.bookDetails={
-      userid:0, 
-      isbn:'',
-      title:'',
-      authors:'',
-      quantity:0,
-      price:0
+    console.log("a")
     }
-  }
+
 
 }
