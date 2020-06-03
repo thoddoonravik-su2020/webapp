@@ -50,6 +50,49 @@ users.post('/register', (req, res) => {
     })
 })
 
+
+
+//POST
+users.put('/register', (req, res) => {
+  const today = new Date()
+  const userData = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: req.body.password,
+    created: today
+  }
+  
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+    //TODO bcrypt
+    .then(user => {
+      if (!user) {
+        const hash = bcrypt.hashSync(userData.password, 10)
+        userData.password = hash
+        User.create(userData)
+          .then(user => {
+            let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+              expiresIn: 1440
+            })
+            res.json({ token: token })
+          })
+          .catch(err => {
+            res.send('error: ' + err)
+          })
+      } else {
+        res.json({ error: 'User exists' })
+      }
+    })
+    .catch(err => {
+      res.send('error: ' + err)
+    })
+})
+
+
 //POST LOGIN
 users.post('/login', (req, res) => {
   User.findOne({
@@ -95,6 +138,7 @@ users.get('/profile', (req, res) => {
     })
 })
 
+//{{ details?.firstname }}
 
 
 module.exports = users

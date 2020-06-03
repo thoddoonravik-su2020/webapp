@@ -15,12 +15,14 @@ import { AuthenticationService } from './authentication.service'
 import { AuthGuardService } from './auth-guard.service'
 import { BookComponent} from './book/book.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import {UserdetailsComponent} from './userdetails/userdetails.component'
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'seller', component: BookComponent },
+  {path: 'userDetails', component: UserdetailsComponent},
   
   {
     path: 'profile',
@@ -36,7 +38,8 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    BookComponent
+    BookComponent,
+    UserdetailsComponent
   ],
   imports: [
     BrowserModule,
