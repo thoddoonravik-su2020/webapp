@@ -41,6 +41,7 @@ export class BookComponent {
 
   onEdit(book: BookDetails){
     this.bookDetails =book;
+   
   }
 
   viewBookDetails(){
@@ -50,8 +51,7 @@ export class BookComponent {
     });
   }
 
-  onDelete(_id:string, form:NgForm){
-    console.log('delete')
+  OnDelete(_id:string, form:NgForm){
     if(confirm('Are you sure to delete the book?')==true){
       this.auth.deleteBook(_id).subscribe();
       this.viewBookDetails;
@@ -65,6 +65,7 @@ export class BookComponent {
   }
   resetForm(form?: NgForm){
     console.log("a")
-  }
+    }
+
 
 }
