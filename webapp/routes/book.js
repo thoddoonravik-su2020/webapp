@@ -70,7 +70,7 @@ users.put('/seller/:id', function (req, res, next) {
     const cont = Object.assign({},req.body)
     console.log(cont)
     Book.update(cont, {where :{id : cont.id}});
-   
+ 
    })
 
   //  //DELETE BOOKS
