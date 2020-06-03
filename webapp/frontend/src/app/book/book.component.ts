@@ -43,7 +43,7 @@ export class BookComponent {
 
   onEdit(book: BookDetails){
     this.bookDetails =book;
-   
+
   }
 
   viewBookDetails(){
@@ -54,9 +54,9 @@ export class BookComponent {
   }
 
 
+
   onDelete(book, form:NgForm){
    if(confirm('Are you sure to delete the book?')==true){
-
       this.auth.deleteBook(book).subscribe();
       this.viewBookDetails;     
     }
@@ -70,5 +70,7 @@ export class BookComponent {
     this.auth.putBookDetails(this.bookDetails).subscribe(X=>{alert('Successfully updated !!');
     this.viewBookDetails();   
   });
+
   }
+
 }

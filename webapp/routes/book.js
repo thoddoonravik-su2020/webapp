@@ -83,6 +83,7 @@ users.put('/seller/:id', function (req, res, next) {
  
    })
 
+
     //  //DELETE BOOKS
    users.delete('http://localhost:3000/books/seller/:id', function (req, res, next) {
      console.log('deleting')
@@ -90,6 +91,8 @@ users.put('/seller/:id', function (req, res, next) {
     Book.destroy();
    }
    )
+
+
 
 
 module.exports = users
