@@ -53,9 +53,10 @@ export class BookComponent {
     });
   }
 
+
   onDelete(book, form:NgForm){
-    console.log('in book.comp ondelete')
-    if(confirm('Are you sure to delete the book?')==true){
+   if(confirm('Are you sure to delete the book?')==true){
+
       this.auth.deleteBook(book).subscribe();
       this.viewBookDetails;     
     }
@@ -69,8 +70,5 @@ export class BookComponent {
     this.auth.putBookDetails(this.bookDetails).subscribe(X=>{alert('Successfully updated !!');
     this.viewBookDetails();   
   });
-    }
-
-
-
+  }
 }

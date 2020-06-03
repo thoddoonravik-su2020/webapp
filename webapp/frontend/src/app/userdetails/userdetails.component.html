@@ -1,5 +1,6 @@
 <div class="container">
   <form (submit)="userEdit()" *ngIf="this.credentials != null">
+
     <div class="jumbotron mt-5">
       <div class="col-sm-8 mx-auto">
         <h1 class="text-center">Welcome{{auth.getUserDetails()?.firstname}}</h1>
@@ -14,7 +15,7 @@
           <td> <input type="text" class="form-control" name="lastname" placeholder="Edit Your Last Name" [(ngModel)]="credentials.lastname"></td>
         </tr>
         <tr>
-          <td>Email</td>
+          <td>Password</td>
           <td> <input type="password" class="form-control" name="password" placeholder="password" [(ngModel)]="credentials.password"></td>
         </tr>
         <button type="submit" class="btn btn-lg btn-primary btn-block">Update</button>

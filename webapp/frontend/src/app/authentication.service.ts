@@ -122,12 +122,14 @@ export class AuthenticationService {
   }
   
 
+
   
   public updateUser(): Observable<any> {
     return this.http.put(`/profile`, {
       headers: { Authorization: `${this.getToken()}` }
     })
   }
+
 
 
   public seller(book : BookDetails): Observable<any> {
@@ -151,7 +153,9 @@ export class AuthenticationService {
   }
 
   deleteBook(book : BookDetails): Observable<any>{
+
     return this.http.delete(`http://localhost:3000/books/seller/`+book.id, {
+
       headers: { Authorization: ` ${this.getToken()}` }   
 
     })
