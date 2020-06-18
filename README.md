@@ -1,10 +1,5 @@
 # webapp
-
-
-
 Web application using Network Structures and Cloud computin
-
-
 #User registration Web Appication using Express in Nodejs and MySql
 
 #Download and Installation
