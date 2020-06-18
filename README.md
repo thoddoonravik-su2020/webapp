@@ -17,6 +17,10 @@ npm install express-session --save
 mysql pug-cli bcrypt util.promisify --save
 
 
+Install CORS 
+npm install cors --save
+
+
 #Start 
 
 npm start
@@ -32,3 +36,4 @@ Table         - users
 
 For Database configuration, check for file name dbconnection
 
+#CORS
