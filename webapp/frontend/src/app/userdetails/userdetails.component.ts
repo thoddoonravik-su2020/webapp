@@ -21,6 +21,8 @@ export class UserdetailsComponent {
     this.auth.profile().subscribe(
       user => {
         this.credentials = user
+        // console.log('into constructor subscribe')
+        // this.auth.updateUser(user).subscribe(X=>{alert('Successfully updated !!');})
       },
       err => {
         console.error(err)
@@ -28,8 +30,8 @@ export class UserdetailsComponent {
     )
   }
 
-  userEdit(user: UserDetails){
-    this.credentials =user;
-   
+
+  userEdit(){       
+         this.auth.updateUser(this.credentials).subscribe(X=>{alert('Successfully updated !!');})
   }
 }

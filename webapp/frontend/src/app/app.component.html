@@ -23,6 +23,9 @@
         <a class="nav-link" routerLink="/buyer">Buyer</a>
       </li>
       <li *ngIf="auth.isLoggedIn()" class="nav-item">
+        <a class="nav-link" routerLink="/cart">Cart</a>
+      </li>
+      <li *ngIf="auth.isLoggedIn()" class="nav-item">
         <a class="nav-link" routerLink="/profile">{{ auth.getUserDetails()?.firstname }}</a>
       </li>
       <li *ngIf="auth.isLoggedIn()" class="nav-item">

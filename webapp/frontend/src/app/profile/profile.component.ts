@@ -23,6 +23,7 @@ export class ProfileComponent {
 
   profile(){
     this.route.navigate(['userDetails'])
+    console.log('navigating to userdetails')
   }
   
 }

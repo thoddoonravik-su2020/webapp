@@ -4,12 +4,12 @@ import { Observable, of } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { Router } from '@angular/router'
 
-
+import { environment } from '../environments/environment';
 
 export interface UserDetails {
   id: number
-  first_name: string
-  last_name: string
+  firstname: string
+  lastname: string
   email: string
   password: string
   exp: number
@@ -31,22 +31,37 @@ export interface TokenPayload {
 //is it right?
 
 export interface BookDetails{
-   id:number,
-  userid:number,
+   id:any,
+  userid:any,
 	isbn:string,
 	title:string,
 	authors:string,
-	quantity:number,
-	PRICE:number
+	quantity:any,
+	PRICE:any
   
+}
+
+export interface CartItems{
+  id:number,
+  userid: number,
+  quantity: number,
+  price:number
+
+}
+
+export interface Images{
+  id: number,
+  bookid: number,
+  imagedata: string 
 }
 
 @Injectable()
 export class AuthenticationService {
+ 
   private token: string
   bookDetails: {
     id:number,
-    userid:number,
+    userid:any,
     isbn:string,
     title:string,
     authors:string,
@@ -54,6 +69,7 @@ export class AuthenticationService {
     PRICE:number
     
   }
+  
   
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -83,9 +99,17 @@ export class AuthenticationService {
   }
 
 
-  public getBookDetails() {
-    return this.http.get('http://localhost:3000/books/seller')
+  public getBookDetails(id :any) {
+
+    return this.http.get(environment.apiUrl + '/books/seller/' +id)
   }
+
+  public buyerBooks(id :any) {
+
+    return this.http.get(environment.apiUrl + '/books/buyer/' +id)
+  }
+
+
 
   public isLoggedIn(): boolean {
     const user = this.getUserDetails()
@@ -97,11 +121,11 @@ export class AuthenticationService {
   }
 
   public register(user: TokenPayload): Observable<any> {
-    return this.http.post(`/users/register`, user)
+    return this.http.post(environment.apiUrl + `/users/register`, user)
   }
 
   public login(user: TokenPayload): Observable<any> {
-    const base = this.http.post(`/users/login`, user)
+    const base = this.http.post(environment.apiUrl + `/users/login`, user)
 
     const request = base.pipe(
       map((data: TokenResponse) => {
@@ -116,48 +140,83 @@ export class AuthenticationService {
   }
 
   public profile(): Observable<any> {
-    return this.http.get(`/users/profile`, {
+    return this.http.get(environment.apiUrl + `/users/profile`, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
   
-
-
-  
-  public updateUser(): Observable<any> {
-    return this.http.put(`/profile`, {
+//Update user  
+  public updateUser(user: TokenPayload): Observable<any> {
+    console.log('into update user method')
+    return this.http.put(environment.apiUrl + `/users/profile/`+user.id, user, {
       headers: { Authorization: `${this.getToken()}` }
     })
   }
 
-
-
-  public seller(book : BookDetails): Observable<any> {
-    return this.http.post('http://localhost:3000/books/seller/',book, {
+  //ADD BOOKS
+  public seller(book : BookDetails,image : any[]): Observable<any> {
+    console.log(JSON.stringify(book));
+    let body = {
+      isbn: book.isbn,
+      title: book.title,
+      authors: book.authors,
+      publication_date: '',
+      quantity: book.quantity,
+      PRICE: book.PRICE,
+      userid: book.userid,
+      id: book.id,
+      images: image
+    }
+    return this.http.post(environment.apiUrl + '/books/seller/',body, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
+
 
   public putBookDetails(book : BookDetails): Observable<any> {
-    return this.http.put(`http://localhost:3000/books/seller/`+book.id,book, {
+    return this.http.put(environment.apiUrl + `/books/seller/`+book.id,book, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
 
-  // public postBook(user: BookDetails): Observable<any> {
-  //   return this.http.post(`/books/seller`, user)
-  // }
-
   public post(user: TokenPayload): Observable<any> {
-    return this.http.put(`/users/register`, user)
+    return this.http.put(environment.apiUrl + `/users/register`, user)
   }
 
   deleteBook(book : BookDetails): Observable<any>{
+    return this.http.delete(environment.apiUrl + `/books/seller/`+book, {
+            headers: { Authorization: ` ${this.getToken()}` }   
 
-    return this.http.delete(`http://localhost:3000/books/seller/`+book.id, {
+    })
+  }
 
-      headers: { Authorization: ` ${this.getToken()}` }   
+  getImages(id : any): Observable<any>{
+    return this.http.get(environment.apiUrl+`/books/seller/images/`+id,{
+      headers: { Authorization: ` ${this.getToken()}` }
+    })
+  }
 
+
+
+
+  // getCartDetails() {
+  //   console.log('get cart details - auth')
+  //   return this.http.get(environment.apiUrl + '/buyer/cart')
+  // }
+
+
+  public cart(userid: any): Observable<any> {
+    console.log(userid)
+    return this.http.get(environment.apiUrl + `/buyer/cart/` + userid, {
+      headers: { Authorization: ` ${this.getToken()}` }
+    })
+  }
+  
+  //Add to cart
+  public addToCart(book : any): Observable<any> {
+    console.log("add to cart")
+    return this.http.post(environment.apiUrl + `/buyer/cart/`+book.userid,book, {
+      headers: { Authorization: ` ${this.getToken()}` }
     })
   }
 
