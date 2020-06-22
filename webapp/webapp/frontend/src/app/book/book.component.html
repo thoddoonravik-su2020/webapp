@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6 mt-5 mx-auto">
+         <div class="col-md-6 mt-5 mx-auto">
             <form (submit)="seller()">
                 <h1 class="h3 mb-3 font-weight-normal">Book Details</h1>
                 <div class="form-group">
@@ -45,36 +45,42 @@
             </form>
         </div>
         <div class="col s9">
-            <table class="responsive-table highlight">
+            <table style="margin-left: auto; margin-right: auto; margin-top: 60px;" class="responsive-table highlight">
                 <thead>
                   <tr>
-                    <th colspan="300">Book Title</th>
-                    <th colspan="300">Book Quantity</th>
-                    <th colspan="300">Book Price</th>
+                    <th colspan="500" style="text-align: center;">Book Title</th>
+                    <th colspan="500" style="text-align: center;">Book Quantity</th>
+                    <th colspan="500" style="text-align: center;">Book Price</th>
                     <!-- <th colspan="300">Book Pictures</th> -->
-                    <th></th>
                   </tr>
                 </thead>
                 <tr *ngFor="let book of books">
-                  <td colspan="300">{{book.title}}</td>
+                  <td colspan="500" style="text-align: center;">{{book.title}}</td>
                   <td></td><td></td>
-                  <td colspan="300">{{book.quantity}}</td>
+                  <td colspan="500" style="text-align: justify">{{book.quantity}}</td>
                   <td></td>
-                  <td colspan="300">{{book.PRICE}}</td>                  
-                  <td colspan="300">
+                  <td colspan="500" style="text-align: justify;">{{book.PRICE}}</td>                  
+                  <td colspan="500">
                     <!-- <img *ngFor='let url of images' src="{{url}}" height="200" width="200"></td> -->
                   <td>
                       <button><a class="action-btn" (click)="onEdit(book)">
-                        edit
+                        Edit
                       </a>
                     </button>
-                    
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
                     <button>
                       <a class="action-btn" (click)="onDelete(book)">
-                        delete
+                        Delete
                       </a>
                     </button>
-                     
+                  </td>
+                  <td></td>
+                  <td></td>
+
+                  <td>
                     <button>
                       <a class="action-btn" (click)="viewImage(book)">
                         View Images
