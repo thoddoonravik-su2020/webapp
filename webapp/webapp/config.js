@@ -1,3 +1,3 @@
 module.exports ={
-    "bucket_name" : "webapp.keerthana.thoddoonravi"
+    "bucket_name" : "webapp.keerthana.tr"
 }
