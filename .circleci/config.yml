@@ -9,9 +9,9 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - node/install-packages:
       - run: cd webapp
       - run: pwd
+      - node/install-packages:
           cache-path: ~/project/node_modules
           override-ci-command: npm install
       - run: npm run test
