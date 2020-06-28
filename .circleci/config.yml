@@ -5,6 +5,7 @@ orbs:
   aws-code-deploy: circleci/aws-code-deploy@1.0.1
 jobs:
   pr_check:
+  run: ls 
     executor:
       name: node/default
     steps:
