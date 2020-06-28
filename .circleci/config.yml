@@ -10,7 +10,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-          cache-path: ~/project/node_modules
+          cache-path: ~/project/webapp/node_modules
           override-ci-command: npm install
       - run: npm run test
   run_unit_tests:
@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-          cache-path: ~/project/node_modules
+          cache-path: ~/project/webapp/node_modules
           override-ci-command: npm install
       - run: npm run test
       - run: ls -al
@@ -37,7 +37,7 @@ jobs:
       - aws-s3/sync:
           from: codedeploy_artifact
           to: "s3://codedeploy.keerthana.tld"
-      #  - run: cat appspec.yml
+      # - run: cat appspec.yml
       # - run: cd codedeploy;ls -al;
       # - aws-code-deploy/deploy-bundle:
       #     application-name: csye6225-webapp
