@@ -17,18 +17,18 @@ jobs:
       # - node/install-packages:
       #     cache-path: ~/project/node_modules
       #     override-ci-command: np 
-      - run: cd /home/circleci/project/webapp && npm install
+      - run: cd /home/circleci/project/webapp && npm install && npm run test
       # - run: npm run test
-  # run_unit_tests:
-  #   executor:
-  # #     name: node/default
-  #   steps:
-  #     - checkout
-  #     - node/install-packages:
-  #         cache-path: ~/project/node_modules
-  #         override-ci-command: cd /home/circleci/project/webapp && npm install
-  #     # - run: npm run test
-  #     - run: ls -al
+  run_unit_tests:
+    executor:
+      name: node/default
+    steps:
+     - checkout  
+      - run: pwd
+      - run: ls -al
+      - run: cd /home/circleci/project/webapp 
+      - run: ls -al
+      - run: pwd
   generate_artifacts_deploy:
     docker:
       - image: "cimg/python:3.6"
