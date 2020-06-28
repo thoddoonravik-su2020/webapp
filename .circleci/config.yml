@@ -17,7 +17,7 @@ jobs:
       - run: pwd
       - node/install-packages:
       - run: cd /home/circleci/project/webapp && npm install
-          cache-path: ~/project/webapp/node_modules
+          cache-path: ~/project/node_modules
           override-ci-command: 
         # - run: npm run test
   run_unit_tests:
