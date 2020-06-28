@@ -6,11 +6,11 @@ files:
 hooks:
   BeforeInstall:
     - location: codedeploy/beforeInstall.sh
-      timeout: 3000
+      timeout: 300
       runas: root
   ApplicationStart:
     - location: codedeploy/applicationStart.sh
-      timeout: 3000
+      timeout: 300
       runas: root
   # AfterInstall:
   #   - location: codedeploy/applicationStart.sh
