@@ -37,13 +37,13 @@ jobs:
       - aws-s3/sync:
           from: codedeploy_artifact
           to: "s3://codedeploy.keerthana.tld"
-       - run: cat appspec.yml
-      - run: cd codedeploy;ls -al;
-      - aws-code-deploy/deploy-bundle:
-          application-name: csye6225-webapp
-          bundle-bucket: codedeploy.keerthana.tld
-          bundle-key: csye6225-server-${CIRCLE_BUILD_NUM} 
-          deployment-group: csye6225-webapp-deployment
+      #  - run: cat appspec.yml
+      # - run: cd codedeploy;ls -al;
+      # - aws-code-deploy/deploy-bundle:
+      #     application-name: csye6225-webapp
+      #     bundle-bucket: codedeploy.keerthana.tld
+      #     bundle-key: csye6225-server-${CIRCLE_BUILD_NUM} 
+      #     deployment-group: csye6225-webapp-deployment
 workflows:
   pr_check:
     jobs:
