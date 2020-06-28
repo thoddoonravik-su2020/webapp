@@ -1,4 +1,5 @@
 #!/bin/bash
+mv /home/ubuntu/webapp-UI/* /var/www/html/
 ls -al
 cd /home/ubuntu/webapp/webapp
 npm install
