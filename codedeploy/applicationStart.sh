@@ -1,6 +1,6 @@
 #!/bin/bash
-sudo mkdir hello
-sudo rm -rf /home/ubuntu/webapp
-node server.js > /dev/null 2> /dev/null < /dev/null &
-
+ls -al
+cd /home/ubuntu/webapp/webapp
+npm install
+node app.js > /dev/null 2> /dev/null < /dev/null &
 

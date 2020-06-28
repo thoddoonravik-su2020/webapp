@@ -1,2 +1,2 @@
-# # #!/bin/bash
-# cd /home/ubuntu/webapp/webapp/frontend
+#!/bin/bash
+killall -s KILL node
