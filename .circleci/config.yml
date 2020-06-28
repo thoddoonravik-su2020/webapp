@@ -9,6 +9,8 @@ jobs:
       name: node/default
     steps:
       - checkout
+      - run: pwd
+      - run: ls -a
       - node/install-packages:
           cache-path: ~/project/node_modules
           override-ci-command: npm install
@@ -23,7 +25,6 @@ jobs:
           override-ci-command: npm install
       - run: npm run test
       - run: ls -al
-      - run: pwd
   generate_artifacts_deploy:
     docker:
       - image: "cimg/python:3.6"
