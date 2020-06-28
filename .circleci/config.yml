@@ -41,7 +41,7 @@ jobs:
           from: codedeploy_artifact
           to: "s3://codedeploy.keerthana.tld"
       - run: cat appspec.yml
-      - run: cd codedeploy;ls -al;
+      - run: cd codedeploy
       - aws-code-deploy/deploy-bundle:
           application-name: csye6225-webapp
           bundle-bucket: codedeploy.keerthana.tld
