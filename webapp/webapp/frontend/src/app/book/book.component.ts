@@ -57,16 +57,19 @@ export class BookComponent {
   viewImage(x : any){
     console.log(x);
     this.auth.getImages(x.id).subscribe(y =>{
-      console.log("obtained successfully")
-      console.log(y);
+      let modalData = {
+        imageContent : y,
+        userType : 'Seller',
+        bookId : x.id
+      }
 
       const dialogRef = this.dialog.open(ImageViewComponent,{
-        width: '90%', height: '80%',
-        data: y
+        width: '50%', height: '80%',
+        data: modalData
       });
 
       dialogRef.afterClosed().subscribe((result : Images)=>{
-
+          
       })
 
     })
@@ -88,7 +91,7 @@ export class BookComponent {
     console.log('in book.comp ondelete')
     if(confirm('Are you sure to delete the book?')==true){
       this.auth.deleteBook(book.id).subscribe();
-      this.viewBookDetails;     
+      this.viewBookDetails();     
     }
   }
 
@@ -96,7 +99,7 @@ export class BookComponent {
   }
 
   resetForm(form?: NgForm){
-    this.auth.putBookDetails(this.bookDetails).subscribe(X=>{alert('Successfully updated !!');
+    this.auth.putBookDetails(this.bookDetails,this.images).subscribe(X=>{alert('Successfully updated !!');
     this.viewBookDetails();   
   });
     }

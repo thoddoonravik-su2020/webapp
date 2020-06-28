@@ -18,10 +18,9 @@ const Op = Sequelize.Op
 //GET REQUEST FOR BOOKS localhost3000:/seller/books
 users.get('/seller/images/:id',(req,res)=>{
 
-  //////////////////////////////////////////
   const bookid = req.params.id;
   var imgs = [];
-  const s3buck = (param, id) => {
+  const s3buckOp = (param, id) => {
       return s3.getObject(param).promise().then(x => {
 
           let img = {
@@ -37,22 +36,16 @@ users.get('/seller/images/:id',(req,res)=>{
       results.forEach(element => {
           let params = { Bucket: config.bucket_name, Key: element.dataValues.imagedata };
           let id = element.id;
-          promises.push(s3buck(params, id));
+          promises.push(s3buckOp(params, id));
       });
       Promise.all(promises).then(z => {
           res.json(imgs);
       })
   }
-  //const imgPromise = ImageService.getImages(bookid);
+
   const imgResp = imagesmodel.findAll({ where :{bookid : bookid} })
   imgResp.then(resu);
 
-
-
-  ///////////////////////////////////////////
-    // const book = Book.findAll({});
-    //    const result = (resp) => { res.status(200); res.json(resp)} 
-    // book.then(result)
 } )
 
 //GET REQUEST FOR BOOKS
@@ -73,16 +66,7 @@ users.get('/buyer/:id',(req,res)=>{
 //POST
 users.post('/seller', (req, res) => {
     const today = new Date()
-    // const sellerData = {
-    //   id:req.body.id,
-    //   userid: req.body.userid,
-    //   isbn: req.body.isbn,
-    //   title: req.body.title,
-    //   authors: req.body.authors,
-    //   publication_date: today,
-    //   quantity: req.body.quantity,
-    //   PRICE: req.body.PRICE,    
-    // }
+    
     // Save the book with images
     const content = Object.assign({}, req.body);
     const book =  Book.build(content);
@@ -118,18 +102,7 @@ users.post('/seller', (req, res) => {
     }
 
     isExist.then(check);
-    //////////////////////////////////////////////////////////////////
-    // if(req.body.quantity > 0 && req.body.quantity < 999)
-     
-    // {
-    //         const result = (resp) => { res.status(200); res.json(resp)}
-    //         const book = Book.build(sellerData);
-    //         book.save().then(result);
-    //    }
-    // else
-    // {
-    //  console.log('quantity should be betweeon 0 & 999 and price should be between 0.1 & 9999.99');
-    // }
+    
 })
 
 
@@ -162,7 +135,32 @@ users.put('/seller/:id', function (req, res, next) {
         // Book.update(cont, {where :{id : cont.id}});
     const promise =Book.update(cont, {where :{id : cont.id}});
     const result = (resp) => { res.status(200); res.json(resp)}
-     promise.then(result)
+    //////////////
+    const result1 = (register) => {
+      let bookid = cont.id;
+      console.log(bookid)
+      const imagesbody = req.body.images;
+      imagesbody.forEach(element => {
+          let currentTime = new Date();
+          const params = {
+              Bucket: config.bucket_name,
+              Key: currentTime.getTime().toString(),
+              Body: element
+          };
+          s3.upload(params).promise().then(x => {
+                  let body = {
+                      "bookid": bookid,
+                      "imagedata": x.Key
+                  }
+                  const tosave = imagesmodel.build(body);
+                  tosave.save();
+          });
+      });
+      res.status(200);
+      res.json(register);
+  };
+    //////
+     promise.then(result1)
  
    })
 
@@ -174,14 +172,42 @@ users.put('/seller/:id', function (req, res, next) {
      //console.log(cont)
   
      //const promise =
-     imagesmodel.destroy({where :{bookid: req.params.id}});
+    imagesmodel.destroy({where :{bookid: req.params.id}});
     Book.destroy({where :{id : req.params.id}});
   
    const result = (resp) => { res.status(200); res.send('this item cannot be deleted')}
-    // Book.destroy();
 
    }
    )
+
+   // Delete Image
+   users.delete('/seller/image/:id', function(req,res){
+    const imgId = req.params.id;
+
+     const images3Id = imagesmodel.findOne({where : {id : imgId}})
+     const result = (imgData) => {if(images3Id){
+       console.log(imgData.dataValues.imagedata)
+       const params = {
+        Bucket: config.bucket_name,
+        Key: imgData.dataValues.imagedata
+        };
+
+        s3.deleteObject(params).promise().then(x => {
+          console.log(x);
+          imagesmodel.destroy({where :{ id: imgId}})
+        }).catch(err => {
+          res.send('error: ' + err)
+        });
+
+        res.status(200);
+        res.json('deleted')
+     };
+    }
+    images3Id.then(result);
+   })
+
+
+
 
    users.delete('/seller/:id', function (req, res, next) {
     console.log(req.body)
@@ -190,6 +216,8 @@ users.put('/seller/:id', function (req, res, next) {
     //console.log(cont)
  
     //const promise =
+    
+
     imagesmodel.destroy({where :{imgid: req.params.id}});
    Book.destroy({where :{id : req.params.id}});
  

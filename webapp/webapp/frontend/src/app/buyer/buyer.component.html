@@ -1,27 +1,80 @@
 <div class="col s9">
-  <table class="responsive-table highlight">
+  <!-- class="col s9" -->
+  <table style="margin-left: auto; margin-right: auto; margin-top: 100px;" class="responsive-table highlight">
       <thead>
         <tr>
-          <th>BooK ID</th>
+          <th>Book ID</th>
+          <th></th><th></th>
           <th>Book Title</th>
+          <th></th><th></th>
           <th>Book Quantity</th>
+          <th></th><th></th>
           <th>Book Price</th>
           <th></th>
         </tr>
       </thead>
       <tr *ngFor="let book of books">
-        <td>{{book.id}}</td>
-        <td>{{book.title}}</td>
+        <td style="text-align: center;">{{book.id}}</td>
         <td></td><td></td>
-        <td>{{book.quantity}}</td>
+        <td style="text-align: center;">{{book.title}}</td>
         <td></td><td></td>
-        <td>{{book.PRICE}}</td>
+        <td style="text-align: center;">{{book.quantity}}</td>
+        <td></td><td></td>
+        <td style="text-align: center;">{{book.PRICE}}</td>
+        <td></td><td></td>        <td></td><td></td>
+
         <td>
             <button><a class="action-btn" (click)="addToCart(book.id)">
               Add to Cart
             </a>
           </button>
         </td>
+        <td></td><td></td>
+        <td>
+            <button><a class="action-btn" (click)="viewImages(book.id)">View Images</a></button>
+        </td>
       </tr>
     </table>
+    <!-- <table mat-table [dataSource]="datasource" >
+
+      <ng-container matColumnDef="book id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="book title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="book quantity">
+        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="book price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.PRICE}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="addToCart">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element">  <button><a class="action-btn" (click)="clicked(element)">
+          Add to Cart
+          </a>
+        </button>    
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="view Image">
+        <th mat-header-cell *matHeaderCellDef>  Images </th>
+        <td mat-cell *matCellDef="let element">  <button><a class="action-btn" (click)="addToCart(book.id)">
+          View Images
+          </a>
+        </button>    
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table> -->
 </div>

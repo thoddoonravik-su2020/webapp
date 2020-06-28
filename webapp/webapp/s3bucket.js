@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 
-const ID = 'AKIAIGDF6D3Z32EAFIVA';
-const SECRET = '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';
+const ID = process.env.accessKeyId;
+const SECRET = process.env.secretAccessKey;
 
 const s3 = new AWS.S3({
     

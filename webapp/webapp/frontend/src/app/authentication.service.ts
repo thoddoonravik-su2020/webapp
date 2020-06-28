@@ -109,6 +109,15 @@ export class AuthenticationService {
     return this.http.get(environment.apiUrl + '/books/buyer/' +id)
   }
 
+  public viewBookImages(id : any){
+    return this.http.get(environment.apiUrl+'/seller/images/'+id)
+  }
+
+  public deleteBookImage(id : any){
+    return this.http.delete(environment.apiUrl+'/books/seller/image/'+id,{
+      headers: { Authorization: ` ${this.getToken()}` }
+    })
+  }
 
 
   public isLoggedIn(): boolean {
@@ -173,8 +182,19 @@ export class AuthenticationService {
   }
 
 
-  public putBookDetails(book : BookDetails): Observable<any> {
-    return this.http.put(environment.apiUrl + `/books/seller/`+book.id,book, {
+  public putBookDetails(book : BookDetails,image : any[]): Observable<any> {
+    let body = {
+      isbn: book.isbn,
+      title: book.title,
+      authors: book.authors,
+      publication_date: '',
+      quantity: book.quantity,
+      PRICE: book.PRICE,
+      userid: book.userid,
+      id: book.id,
+      images: image
+    }
+    return this.http.put(environment.apiUrl + `/books/seller/`+book.id,body, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
