@@ -17,16 +17,16 @@ jobs:
       # - node/install-packages:
       #     cache-path: ~/project/node_modules
       #     override-ci-command: np 
-      - run: cd /home/circleci/project/webapp && npm install && npm run test
+      - run: cd /home/circleci/project/webapp && npm install
       # - run: npm run test
   run_unit_tests:
     executor:
       name: node/default
     steps:
-     - checkout  
+      - checkout  
       - run: pwd
       - run: ls -al
-      - run: cd /home/circleci/project/webapp 
+      - run: cd /home/circleci/project/webapp && npm install && npm run test
       - run: ls -al
       - run: pwd
   generate_artifacts_deploy:
