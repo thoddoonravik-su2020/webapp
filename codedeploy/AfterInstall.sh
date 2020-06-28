@@ -1,4 +1,4 @@
 #!/bin/bash
 ls -al
-cd /home/ubuntu/webapp/frontend
+cd /home/ubuntu/webapp/webapp/frontend
 npm run ng build
