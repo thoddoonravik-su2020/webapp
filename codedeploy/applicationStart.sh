@@ -1,5 +1,4 @@
 #!/bin/bash
-
 cd /home/ubuntu/webapp/webapp/webapp/frontend/
 sudo npm install
 sudo ng build
