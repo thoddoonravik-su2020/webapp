@@ -12,3 +12,4 @@ hooks:
     - location: codedeploy/applicationStart.sh
       timeout: 3000
       runas: root
+
