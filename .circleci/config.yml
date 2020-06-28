@@ -31,6 +31,11 @@ jobs:
       - image: "cimg/python:3.6"
     steps:
       - checkout
+      - run:
+                name: Build
+                command: |
+                  sed -i "s/localhost/${server}/g" src/environments/environment.ts
+                  ng build
       - run: ls -al
       - run: rm -rf node_modules
       - run: zip -r csye6225-server-${CIRCLE_BUILD_NUM}.zip ./
