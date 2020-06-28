@@ -23,14 +23,12 @@ jobs:
     executor:
       name: node/default
     steps:
-      - checkout
-      - node/install-packages:
-          cache-path: ~/project/node_modules
-
-          override-ci-command: cd /home/circleci/project/webapp && npm install
-
-      # - run: npm run test
+      - checkout  
+      - run: pwd
       - run: ls -al
+      - run: cd /home/circleci/project/webapp && npm install && npm run test
+      - run: ls -al
+      - run: pwd
   generate_artifacts_deploy:
     docker:
       - image: "cimg/python:3.6"
