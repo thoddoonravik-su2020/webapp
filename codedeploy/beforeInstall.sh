@@ -1,4 +1,5 @@
 #!/bin/bash
+
 sudo rm -rf /home/ubuntu/webapp
 
 sudo rm -rf /var/www/html/*
