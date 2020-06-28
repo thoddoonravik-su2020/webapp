@@ -10,7 +10,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-          cache-path: ~/project/webapp/node_modules
+          cache-path: ~/project/node_modules
           override-ci-command: npm install
       - run: npm run test
   run_unit_tests:
@@ -19,10 +19,11 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-          cache-path: ~/project/webapp/node_modules
+          cache-path: ~/project/node_modules
           override-ci-command: npm install
       - run: npm run test
       - run: ls -al
+      - run: pwd
   generate_artifacts_deploy:
     docker:
       - image: "cimg/python:3.6"
