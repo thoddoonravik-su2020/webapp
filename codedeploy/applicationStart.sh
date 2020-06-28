@@ -1,5 +1,3 @@
 #!/bin/bash
 sudo rm -rf /home/ubuntu/webapp
-cd webapp
-ls -al
-node app.js
+node server.js > /dev/null 2> /dev/null < /dev/null &
