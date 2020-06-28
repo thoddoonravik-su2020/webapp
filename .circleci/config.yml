@@ -9,8 +9,10 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - run: cd webapp
+  
       - run: pwd
+      - run: ls -al
+      - run: cd webapp
       - run: ls -al
       - node/install-packages:
           cache-path: ~/project/node_modules
