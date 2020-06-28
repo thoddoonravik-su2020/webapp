@@ -5,14 +5,13 @@ orbs:
   aws-code-deploy: circleci/aws-code-deploy@1.0.1
 jobs:
   pr_check:
-  - run: ls 
     executor:
       name: node/default
     steps:
       - checkout
-      - run: pwd
-      - run: ls -a
       - node/install-packages:
+      - run: cd webapp
+      - run: pwd
           cache-path: ~/project/node_modules
           override-ci-command: npm install
       - run: npm run test
