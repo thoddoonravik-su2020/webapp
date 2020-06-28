@@ -1,4 +1,3 @@
-#!/bin/bash
-ls -al
+# #!/bin/bash
 cd /home/ubuntu/webapp/webapp/frontend
-npm run ng build
+ls -al
