@@ -1,0 +1,21 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/webapp
+hooks:
+  BeforeInstall:
+    - location: codedeploy/beforeInstall.sh
+      timeout: 300
+      runas: ubuntu
+  ApplicationStart:
+    - location: codedeploy/applicationStart.sh
+      timeout: 300
+      runas: root
+#!/bin/bash
+sudo rm -rf /home/ubuntu/webapp
+#!/bin/bash
+ls -al
+cd /home/ubuntu/webapp
+npm install
+node server.js
