@@ -36,11 +36,8 @@ jobs:
       - run: ls -al
       - aws-s3/sync:
           from: codedeploy_artifact
-          to: "s3://codedeploy.yourdomain.tld"
-      # - aws-s3/copy:
-      #     from: csye6225-server-${CIRCLE_BUILD_NUM}.zip
-      #     to: "s3://codedeploy.yourdomain.tld"
-      - run: cat appspec.yml
+          to: "s3://codedeploy.keerthana.tld"
+       - run: cat appspec.yml
       - run: cd codedeploy;ls -al;
       - aws-code-deploy/deploy-bundle:
           application-name: csye6225-webapp
