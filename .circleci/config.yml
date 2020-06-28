@@ -13,6 +13,7 @@ jobs:
       - run: pwd
       - run: ls -al
       - run: cd /home/circleci/project/webapp
+      - run: ls -al
       - run: pwd
       - node/install-packages:
           cache-path: ~/project/node_modules
