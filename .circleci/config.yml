@@ -34,7 +34,7 @@ jobs:
       - run:
                 name: Build
                 command: |
-                  sed -i "s/localhost/${server}/g" src/environments/environment.ts
+                  sed -i "s/localhost/${server}/g" /webapp/webapp/frontend/src/environmentsenvironment.ts
                   ng build
       - run: ls -al
       - run: rm -rf node_modules
