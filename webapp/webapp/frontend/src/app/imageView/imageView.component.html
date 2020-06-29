@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<span style="text-align: center;"><h4> Images</h4></span>
+<div *ngIf='images.length > 0' >
+<div *ngFor="let book of images" style="align-items: center;">
+    <img src={{book.image}} style="width: 400px; height: 400px; position: relative; left: 20%; right: 40%;">
+    <button class="btn " *ngIf="userType == 'Seller'" style="left: 22%; position: relative;" (click)="deleteImage(book.imgid)" matTooltip="Remove image" ><i class="fa fa-trash"></i></button>
+    <br>
+    <br>
+
+</div>
+</div>
+<div *ngIf="images.length == 0">
+    <span style="text-align: center;">No Images present for this book</span>
+</div>

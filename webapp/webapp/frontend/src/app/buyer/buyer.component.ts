@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import { AuthenticationService, TokenPayload, BookDetails, CartItems } from '../authentication.service'
 import { Router } from '@angular/router'
 import { NgForm, NgModel } from '@angular/forms';
 import { CartComponent } from '../cart/cart.component';
+import { MatDialog } from '@angular/material';
+import { ImageViewComponent } from '../imageView/imageView.component';
+import { MatTable } from '@angular/material/table'
+
+
 @Component({
   selector: 'app-buyer',
   templateUrl: './buyer.component.html',
@@ -10,7 +15,7 @@ import { CartComponent } from '../cart/cart.component';
 })
 export class BuyerComponent {
 
-
+  @ViewChild(MatTable) table: MatTable<any>;
 
   cart: CartItems ={
     id:0,
@@ -33,8 +38,10 @@ export class BuyerComponent {
 
   books : BookDetails[];
   carts : CartItems[];
+  datasource : any;
+  displayedColumns: string[] = ['book id', 'book title', 'book quantity', 'book price','view Image','addToCart'];
 
-  constructor(private auth: AuthenticationService, private router: Router) {
+  constructor(private auth: AuthenticationService, private router: Router,public dialog : MatDialog) {
     this.auth.profile().subscribe(x=>{
       this.bookDetails.userid = x.id;
       this.viewBookDetails();
@@ -46,6 +53,7 @@ export class BuyerComponent {
 
     this.auth.buyerBooks(this.bookDetails.userid).subscribe((res)=>{
       this.books =res as BookDetails[] ;
+      this.datasource = this.books;
     });
   }
 
@@ -71,6 +79,25 @@ export class BuyerComponent {
     // });
   }
   
+  viewImages(id : any){
+    this.auth.getImages(id).subscribe(imageArr => {
+      let modalData = {
+        imageContent : imageArr,
+        userType: 'Buyer',
+        bookId : id
+      }
+
+      const dialogRef = this.dialog.open(ImageViewComponent,{
+        width: '50%', height: '80%',
+        data: modalData
+      });
+
+    })
+  }
+
+  clicked(ele : any){
+    console.log(ele)
+  }
 
 // addToCart(y:any){
 //   console.log('cart component')
@@ -87,7 +114,7 @@ export class BuyerComponent {
 
 
 ngOnInit(){
-
+  this.viewBookDetails();
     
 }
 }

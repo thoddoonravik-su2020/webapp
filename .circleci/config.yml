@@ -1,32 +1,65 @@
 version: 2.1
 orbs:
-  node: circleci/node@1.1.6
+  node: circleci/node@3.0.0
+  aws-s3: circleci/aws-s3@1.0.15
+  aws-code-deploy: circleci/aws-code-deploy@1.0.1
 jobs:
   pr_check:
     executor:
       name: node/default
     steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            # - run: npm test
-  build:
+      - checkout  
+      - run: pwd
+      - run: ls -al
+      - run: cd /home/circleci/project/webapp 
+      - run: ls -al
+      - run: pwd
+      - run: cd /home/circleci/project/webapp && npm install
+ 
+  run_unit_tests:
     executor:
       name: node/default
     steps:
+      - checkout  
+      - run: pwd
+      - run: ls -al
+      - run: cd /home/circleci/project/webapp && npm install 
+      - run: ls -al
+      - run: pwd
+  generate_artifacts_deploy:
+    docker:
+      - image: "cimg/python:3.6"
+    steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            # - run: npm test
+      - run: ls -al
+      - run: rm -rf node_modules
+      - run: zip -r csye6225-server-${CIRCLE_BUILD_NUM}.zip ./
+      - run: mkdir codedeploy_artifact
+      - run: mv csye6225-server-${CIRCLE_BUILD_NUM}.zip codedeploy_artifact/ 
+      - run: ls -al
+      - aws-s3/sync:
+          from: codedeploy_artifact
+          to: "s3://codedeploy.keerthana.tld"
+      - run: cat appspec.yml
+      - run: cd codedeploy
+      - aws-code-deploy/deploy-bundle:
+          application-name: csye6225-webapp
+          bundle-bucket: codedeploy.keerthana.tld
+          bundle-key: csye6225-server-${CIRCLE_BUILD_NUM} 
+          deployment-group: csye6225-webapp-deployment
 workflows:
   pr_check:
     jobs:
       - pr_check
   build_deploy:
     jobs:
-      - build:
+      - run_unit_tests:
+          filters:
+            branches:
+              only: master
+      - generate_artifacts_deploy:
+          requires:
+            - run_unit_tests
           filters:
             branches:
               only: master

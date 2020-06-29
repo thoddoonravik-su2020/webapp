@@ -1,5 +1,5 @@
 # webapp
-Web application using Network Structures and Cloud computin
+Web application using Network Structures and Cloud computing
 #User registration Web Appication using Express in Nodejs and MySql
 
 #Download and Installation
@@ -34,5 +34,3 @@ For Database configuration, check for file name dbconnection
 #CORS
 
  npm install aws-sdk
-
- 
