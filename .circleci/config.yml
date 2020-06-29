@@ -62,9 +62,4 @@ workflows:
           filters:
             branches:
               only: master
-      - generate_artifacts_deploy:
-          requires:
-            - run_unit_tests
-          filters:
-            branches:
-              only: master
+      - generate_artifacts_deploy
