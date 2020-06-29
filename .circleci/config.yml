@@ -33,7 +33,7 @@ jobs:
       - checkout
       - run: pwd
       - run: ls -al
-      - run: cd webapp
+      - run: cd webapp/webapp
       - run: ls -al
       - run: sed -i "s/localhost/${server}/g" webapp/webapp/webapp/frontend/src/environments/environment.ts
       - run: ls -al
