@@ -30,12 +30,8 @@ jobs:
     docker:
       - image: "cimg/python:3.6"
     steps:
-      - checout
-      - run:
-        name: Build
-        command: |
-        sed -i "s/localhost/${server}/g" /webapp/webapp/frontend/src/environments/environment.ts
       - checkout
+      - run: sed -i "s/localhost/${server}/g" /webapp/webapp/frontend/src/environments/environment.ts
       - run: ls -al
       - run: rm -rf node_modules
       - run: zip -r csye6225-server-${CIRCLE_BUILD_NUM}.zip ./
