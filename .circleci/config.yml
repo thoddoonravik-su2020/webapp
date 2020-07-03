@@ -52,7 +52,7 @@ workflows:
     jobs:
       - pr_check
   build_deploy:
-    jobs:
+    jobs:  
       - run_unit_tests:
           filters:
             branches:
