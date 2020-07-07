@@ -29,8 +29,10 @@ export class BookComponent {
 
   }
 
-  books : BookDetails[];
+  books : BookDetails[] = [];
   imageData : Images[]=[];
+  btnAdd : boolean = false;
+  btnUpdate : boolean = true;
 
   constructor(private auth: AuthenticationService, private router: Router,public dialog: MatDialog) {
    
@@ -50,7 +52,17 @@ export class BookComponent {
   seller() {
     this.auth.seller(this.bookDetails,this.images).subscribe(x=>{
       alert("added")
-      this.viewBookDetails();                                                             
+      this.viewBookDetails();  
+      this.bookDetails = {
+        id:0,
+        userid:0, 
+	      isbn:'',
+	      title:'',
+	      authors:'',
+	      quantity:0,
+        PRICE:0
+      }
+      this.images=[];                                                    
     });
 }
 
@@ -77,7 +89,9 @@ export class BookComponent {
   }
 
   onEdit(book: BookDetails){
-    this.bookDetails =book;   
+    this.bookDetails =book;
+    this.btnUpdate = false;
+    this.btnAdd = true;   
   }
 
   viewBookDetails(){
@@ -90,8 +104,10 @@ export class BookComponent {
   onDelete(book: BookDetails){
     console.log('in book.comp ondelete')
     if(confirm('Are you sure to delete the book?')==true){
-      this.auth.deleteBook(book.id).subscribe();
-      this.viewBookDetails();     
+      this.auth.deleteBook(book.id).subscribe(x =>{
+        this.viewBookDetails();     
+      });      
+      
     }
   }
 
@@ -100,7 +116,18 @@ export class BookComponent {
 
   resetForm(form?: NgForm){
     this.auth.putBookDetails(this.bookDetails,this.images).subscribe(X=>{alert('Successfully updated !!');
-    this.viewBookDetails();   
+    this.viewBookDetails();
+    this.bookDetails = {
+      id:0,
+      userid:0, 
+      isbn:'',
+      title:'',
+      authors:'',
+      quantity:0,
+      PRICE:0
+    }  
+    this.btnAdd = false;
+    this.btnUpdate = true;
   });
     }
 

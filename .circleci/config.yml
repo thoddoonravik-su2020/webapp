@@ -24,13 +24,13 @@ jobs:
       - run: pwd
       - run: ls -al
       - run: cd /home/circleci/project/webapp && npm install 
-      - run: ls -al
-      - run: pwd
+
   generate_artifacts_deploy:
     docker:
       - image: "cimg/python:3.6"
     steps:
       - checkout
+      - run: sed -i "s/localhost/${server}/g" webapp/webapp/frontend/src/environments/environment.ts
       - run: ls -al
       - run: rm -rf node_modules
       - run: zip -r csye6225-server-${CIRCLE_BUILD_NUM}.zip ./
@@ -52,14 +52,10 @@ workflows:
     jobs:
       - pr_check
   build_deploy:
-    jobs:
+    jobs:  
       - run_unit_tests:
           filters:
             branches:
               only: master
-      - generate_artifacts_deploy:
-          requires:
-            - run_unit_tests
-          filters:
-            branches:
-              only: master
+      - generate_artifacts_deploy 
+      

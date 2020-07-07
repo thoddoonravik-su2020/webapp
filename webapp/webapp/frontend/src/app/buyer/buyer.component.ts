@@ -21,8 +21,10 @@ export class BuyerComponent {
     id:0,
     userid:0,
     quantity:0,
-    price:0
-
+    PRICE:0,
+    title:'',
+    bookid:0,
+    message : ''
   }
 
   bookDetails: BookDetails = {
@@ -58,25 +60,73 @@ export class BuyerComponent {
   }
 
 
-  addToCart(id:any){
+  addToCart(book:BookDetails){
     console.log('cart comp add to cart')
-    var quantity = prompt("Please enter quantity");
-
-    if(quantity != null){
-      let body = {
-        "bookid" : id,
-        "userid" : this.bookDetails.userid,
-        "quantity" : quantity
+    this.auth.findInCart(this.bookDetails.userid,book.id).subscribe(x =>{
+      if(x.length != 0){
+          alert("Book already exists in cart. Please update in cart");
+      }else{
+        var quantity = prompt("Please enter quantity");
+        var q: number = +quantity;
+    
+        if (!Number.isNaN(q) && q <= book.quantity && q > 0){
+          let body = {
+            "bookid" : book.id,
+            "userid" : this.bookDetails.userid,
+            "quantity" : q,
+            "PRICE" : book.PRICE,
+            "title" : book.title
+          }
+          console.log(body)
+    
+          this.auth.addToCart(body).subscribe( x =>{
+            alert("Added to cart successfully");
+          });
+    
+        }
+        else{
+          if(Number.isNaN(q)){
+            alert("Please enter a valid quantity");
+          }
+          else if(q > book.quantity){
+            alert("Please enter a lesser quantity. Available quantity is " + book.quantity);
+          }
+          else if(q <= 0){
+              alert("Please enter a quantity greater than 0");
+          }
+        }
       }
-      console.log(body)
-
-      this.auth.addToCart(body).subscribe();
-
-    }
-
+    })
     
-    
-    // });
+    // var quantity = prompt("Please enter quantity");
+    // var q: number = +quantity;
+
+    // if (!Number.isNaN(q) && q <= book.quantity && q > 0){
+    //   let body = {
+    //     "bookid" : book.id,
+    //     "userid" : this.bookDetails.userid,
+    //     "quantity" : q,
+    //     "PRICE" : book.PRICE,
+    //     "title" : book.title
+    //   }
+    //   console.log(body)
+
+    //   this.auth.addToCart(body).subscribe( x =>{
+    //     alert("Added to cart successfully");
+    //   });
+
+    // }
+    // else{
+    //   if(Number.isNaN(q)){
+    //     alert("Please enter a valid quantity");
+    //   }
+    //   else if(q > book.quantity){
+    //     alert("Please enter a lesser quantity. Available quantity is " + book.quantity);
+    //   }
+    //   else if(q <= 0){
+    //       alert("Please enter a quantity greater than 0");
+    //   }
+    // }   
   }
   
   viewImages(id : any){
