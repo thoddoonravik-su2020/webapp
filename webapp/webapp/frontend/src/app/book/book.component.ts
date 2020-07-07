@@ -22,6 +22,17 @@ export class BookComponent {
   PRICE:0
   }
 
+  editBook: BookDetails = {
+    id:0,
+   userid:0, 
+   isbn:'',
+   title:'',
+   authors:'',
+   quantity:0,
+   PRICE:0
+   }
+
+
   imageDetails: Images = {
     id: 0,
     bookid : 0,
@@ -61,8 +72,7 @@ export class BookComponent {
 	      authors:'',
 	      quantity:0,
         PRICE:0
-      }
-      this.images=[];                                                    
+      }                                                      
     });
 }
 
@@ -89,7 +99,16 @@ export class BookComponent {
   }
 
   onEdit(book: BookDetails){
-    this.bookDetails =book;
+    this.editBook = {
+      id : book.id,
+      userid:book.userid, 
+      isbn:book.isbn,
+      title:book.title,
+      authors:book.authors,
+      quantity:book.quantity,
+      PRICE:book.PRICE
+    }
+    this.bookDetails = this.editBook;
     this.btnUpdate = false;
     this.btnAdd = true;   
   }
