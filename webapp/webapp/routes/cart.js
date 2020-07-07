@@ -21,6 +21,8 @@ users.post('/cart/:id', (req,res) => {
       bookid:req.body.bookid,
       userid: req.body.userid,
       quantity: req.body.quantity,
+      title: req.body.title,
+      PRICE: req.body.PRICE
     }
     console.log(cartItems)      
     {
@@ -30,18 +32,53 @@ users.post('/cart/:id', (req,res) => {
        }
     })
 
+//Update cart quantity
+users.put('/cart/:id',(req,res) =>{
+  const cont = Object.assign({},req.body)
+  const result = (response) =>{
+    res.status(200);
+    res.json(response);
+  }
+  const promise =Cart.update(cont, {where :{id : cont.id}});
+  promise.then(result)
+})
 
+// Delete cart
+users.delete('/cart/:id',(req,res) =>{
+  const result = (response) =>{
+    res.status(200);
+    res.json(response)
+  }
+  const promise = Cart.destroy({where :{id: req.params.id}});
+  promise.then(result)
+})
 
+// Get cart details
     users.get('/cart/:id',(req,res)=>{ 
       console.log('/cart get findall')    
       const cart = Cart.findAll({
         where:{
           userid: req.params.id
-        }
+        },
+        order:[
+            ['id','ASC']
+        ]
       });
          const result = (resp) => { res.status(200); res.json(resp)}
       cart.then(result)
     } )
+  
+//Get cart for given Book ID and User ID
+users.get('/cart/check/:userid/:bookid',(req,res) =>{
+  const result = (response) =>{
+    res.status(200)
+    res.json(response);
+  };
+  console.log(req.params.userid)
+  console.log(req.params.bookid)
+  const promise = Cart.findAll({ where :{ bookid: req.params.bookid, userid: req.params.userid}})
+  promise.then(result)
+})
     
 
 module.exports = users;

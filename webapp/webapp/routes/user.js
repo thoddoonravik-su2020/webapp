@@ -13,46 +13,6 @@ users.use(cors())
 process.env.SECRET_KEY = 'secret'
 
 
-
-// const AWS_ACCESS_KEY='AKIAIX45E43NMFL2IWNA';
-// const AWS_SECRET_KEY='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';
-// //GET IMAGE from s3
-// // Our default route
-// users.get('/image',(req,res)=>{
-//   console.log('hello')
-//   AWS.config.update({
-//       accessKeyId: 'AKIAIX45E43NMFL2IWNA',
-//       secretAccessKey: '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'
-//     });
-// let s3 = new AWS.S3();
-// async function getImage(){
-//   const params =  s3.getObject(
-//     {
-//         Bucket: 'webapp.keerthana.tr',
-//         Key: 'myImage1'
-//       }
-    
-//   ).promise();
-//   return params;
-// } 
-// getImage()
-// .then((img)=>{
-// let image="<img src='data:image/jpeg;base64," + encode(img.Body) + "'" + "/>";
-// let startHTML="<html><body></body>";
-// let endHTML="</body></html>";
-// let html=startHTML + image + endHTML;
-// res.send(html)
-// }).catch((e)=>{
-//       res.send(e)
-// })
-// function encode(data){
-//   let buf = Buffer.from(data);
-//   let base64 = buf.toString('base64');
-//   return base64
-//   }
-//   })
-  
-
 //POST
 users.post('/register', (req, res) => {
   const today = new Date()
@@ -95,16 +55,6 @@ users.post('/register', (req, res) => {
 
 
 
-// //POST
-// users.put('/profile', (req, res) => {
-//   const today = new Date()
-//   const userData = {
-//     firstname: req.body.firstname,
-//     lastname: req.body.lastname,
-//     email: req.body.email,
-//     password: req.body.password,
-//     created: today
-//   }
   
  //UPDATE USERS
 users.put('/profile/:id', (req, res) =>{

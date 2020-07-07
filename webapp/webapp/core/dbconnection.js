@@ -20,6 +20,9 @@ const sequelize = new Sequelize('csye6225', process.env.username, process.env.pa
 //     min: 0,
 //     acquire: 30000,
 //     idle:10000
+//   },
+//      logging: false
+
 //   }
 // }
 // )
@@ -54,18 +57,20 @@ try{
    " CONSTRAINT `books_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`)"+
    ") ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;" 
 
-   let carts = 
-   "CREATE TABLE IF NOT EXISTS `carts` ("+
-   " `ID` int(11) NOT NULL AUTO_INCREMENT,"+
-    "`bookid` int(11) DEFAULT NULL,"+
-    "`userid` int(11) DEFAULT NULL,"+
-    "`quantity` int(11) NOT NULL,"+
-    "PRIMARY KEY (`ID`),"+
-    "KEY `userid` (`userid`),"+
-    "KEY `bookid` (`bookid`),"+
-    "CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`),"+
-    "CONSTRAINT `carts_ibfk_2` FOREIGN KEY (`bookid`) REFERENCES `books` (`ID`)"+
-  ") ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;"
+
+
+  let carts = 
+  "CREATE TABLE IF NOT EXISTS `carts` ("+
+  " `ID` int(11) NOT NULL AUTO_INCREMENT,"+
+   "`bookid` int(11) DEFAULT NULL,"+
+   "`userid` int(11) DEFAULT NULL,"+
+   "`quantity` int(11) NOT NULL,"+
+   "`title` varchar(100) NOT NULL,"+
+   "`PRICE` double NOT NULL,"+
+   "PRIMARY KEY (`ID`),"+
+   "KEY `userid` (`userid`),"+
+   "CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`id`)"+
+ ") ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;"
   
   let images =
   "CREATE TABLE IF NOT EXISTS `images` ("+

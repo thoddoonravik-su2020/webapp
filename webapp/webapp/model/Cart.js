@@ -18,6 +18,12 @@ module.exports = db.sequelize.define(
     quantity: {
       type: Sequelize.INTEGER,
     },
+    title:{
+      type: Sequelize.TEXT,
+    },
+    PRICE:{
+      type: Sequelize.DOUBLE
+    }
   },
   {
     timestamps: false

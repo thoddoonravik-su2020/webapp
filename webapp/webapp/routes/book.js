@@ -63,6 +63,18 @@ users.get('/buyer/:id',(req,res)=>{
   book.then(result)
 } )
 
+
+
+// Obtain Book details using Book ID
+users.get('/:id',(req,res) =>{
+  const result = (response) =>{
+    res.status(200);
+    res.json(response);
+  }
+  const book = Book.findOne({where: { ID: req.params.id}})
+  book.then(result)
+})
+
 //POST
 users.post('/seller', (req, res) => {
     const today = new Date()
@@ -107,6 +119,9 @@ users.post('/seller', (req, res) => {
 
 
 
+
+
+
 //GET BOOKS
 users.get('/seller/:id', (req, res) => {
     // var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
@@ -132,10 +147,8 @@ users.get('/seller/:id', (req, res) => {
 //UPDATE BOOKS
 users.put('/seller/:id', function (req, res, next) {
     const cont = Object.assign({},req.body)
-        // Book.update(cont, {where :{id : cont.id}});
     const promise =Book.update(cont, {where :{id : cont.id}});
     const result = (resp) => { res.status(200); res.json(resp)}
-    //////////////
     const result1 = (register) => {
       let bookid = cont.id;
       console.log(bookid)
@@ -159,26 +172,64 @@ users.put('/seller/:id', function (req, res, next) {
       res.status(200);
       res.json(register);
   };
-    //////
      promise.then(result1)
  
    })
 
-    //  //DELETE BOOKS
-   users.delete('/seller/:id', function (req, res, next) {
-     console.log(req.body)
-     console.log('deleting')
-    // const cont = Object.assign({},req.params.body)
-     //console.log(cont)
   
-     //const promise =
-    imagesmodel.destroy({where :{bookid: req.params.id}});
-    Book.destroy({where :{id : req.params.id}});
-  
-   const result = (resp) => { res.status(200); res.send('this item cannot be deleted')}
 
-   }
-   )
+    //  //DELETE BOOKS
+    users.delete('/seller/:id', function (req, res, next) {
+      console.log(req.body)
+      console.log('deleting')
+      console.log(req.params.id)
+ 
+       //send response back
+     const response = (result) =>{
+       console.log('inside response')
+       res.status(200);
+       res.json(result);
+     };
+
+
+
+      // delete the book
+    const bookDel = (resp) =>{
+      const r = Book.destroy({where :{id : req.params.id}});
+      r.then(response)
+    };
+
+
+
+
+
+
+    ///// Delete the images from s3 bucket
+    const s3buckOp = (param,id) => {
+      return s3.deleteObject(param).promise().then(x => {
+        console.log(x);
+        imagesmodel.destroy({where :{ id: id}})
+      }).catch(err => {
+        res.send('error: ' + err)
+      });      
+  }
+
+    //delete all images
+  const imgDelete = (results) => {
+      let promises = []
+      results.forEach(element => {
+          let params = { Bucket: config.bucket_name, Key: element.dataValues.imagedata };
+          let id = element.dataValues.id;
+          promises.push(s3buckOp(params,id));
+      });
+      Promise.all(promises).then(bookDel)
+  }
+    //get all images for the book
+  const imgResp = imagesmodel.findAll({ where :{bookid : req.params.id} })
+  imgResp.then(imgDelete);
+
+   })
+
 
    // Delete Image
    users.delete('/seller/image/:id', function(req,res){
@@ -205,29 +256,5 @@ users.put('/seller/:id', function (req, res, next) {
     }
     images3Id.then(result);
    })
-
-
-
-
-   users.delete('/seller/:id', function (req, res, next) {
-    console.log(req.body)
-    console.log('deleting')
-   // const cont = Object.assign({},req.params.body)
-    //console.log(cont)
- 
-    //const promise =
-    
-
-    imagesmodel.destroy({where :{imgid: req.params.id}});
-   Book.destroy({where :{id : req.params.id}});
- 
-  const result = (resp) => { res.status(200); res.send('this item cannot be deleted')}
-   // Book.destroy();
-
-  }
-  )
-
-
-
 
 module.exports = users
