@@ -23,6 +23,7 @@ const sequelize = new Sequelize('csye6225', process.env.username, process.env.pa
 //   },
 //      logging: false
 
+//   }
 // }
 // )
 db.Sequelize = Sequelize;
