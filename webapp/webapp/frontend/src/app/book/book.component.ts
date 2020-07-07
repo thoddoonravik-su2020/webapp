@@ -72,7 +72,7 @@ export class BookComponent {
 	      authors:'',
 	      quantity:0,
         PRICE:0
-      }                                                      
+      }                                     
     });
 }
 
@@ -109,7 +109,7 @@ export class BookComponent {
       PRICE:book.PRICE
     }
     this.bookDetails = this.editBook;
-    this.btnUpdate = false;
+      this.btnUpdate = false;
     this.btnAdd = true;   
   }
 
