@@ -45,8 +45,10 @@ export interface CartItems{
   id:number,
   userid: number,
   quantity: number,
-  price:number
-
+  PRICE:number,
+  title: string,
+  bookid : number,
+  message : string
 }
 
 export interface Images{
@@ -203,6 +205,12 @@ export class AuthenticationService {
     return this.http.put(environment.apiUrl + `/users/register`, user)
   }
 
+  getBook(id : any): Observable<any>{
+    return this.http.get(environment.apiUrl+ `/books/`+id,{
+      headers: { Authorization: ` ${this.getToken()}` } 
+    })
+  }
+
   deleteBook(book : BookDetails): Observable<any>{
     return this.http.delete(environment.apiUrl + `/books/seller/`+book, {
             headers: { Authorization: ` ${this.getToken()}` }   
@@ -239,6 +247,31 @@ export class AuthenticationService {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
+
+  //Find using User ID and Book ID
+  public findInCart(userid : any,bookid : any): Observable<any> {
+  
+    return this.http.get(environment.apiUrl+`/buyer/cart/check/`+userid+`/`+bookid,{
+      headers: { Authorization: ` ${this.getToken()}` }
+    })
+  }
+
+  // Update Cart
+  public updateCart(cart : CartItems): Observable<any>{
+    return this.http.put(environment.apiUrl+`/buyer/cart/`+cart.id,cart,{
+      headers: { Authorization: ` ${this.getToken()}` 
+    }
+    })
+  }
+
+  //Delete Cart
+  public deleteCart(id : any): Observable<any>{
+    return this.http.delete(environment.apiUrl+`/buyer/cart/`+id,{
+      headers: { Authorization: ` ${this.getToken()}` }
+    })
+  }
+
+
 
   public logout(): void {
     this.token = ''

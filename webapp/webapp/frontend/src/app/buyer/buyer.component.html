@@ -24,7 +24,7 @@
         <td></td><td></td>        <td></td><td></td>
 
         <td>
-            <button><a class="action-btn" (click)="addToCart(book.id)">
+            <button><a class="action-btn" (click)="addToCart(book)">
               Add to Cart
             </a>
           </button>
@@ -35,46 +35,5 @@
         </td>
       </tr>
     </table>
-    <!-- <table mat-table [dataSource]="datasource" >
-
-      <ng-container matColumnDef="book id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="book title">
-        <th mat-header-cell *matHeaderCellDef> Title </th>
-        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="book quantity">
-        <th mat-header-cell *matHeaderCellDef> Quantity </th>
-        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="book price">
-        <th mat-header-cell *matHeaderCellDef> Price </th>
-        <td mat-cell *matCellDef="let element"> {{element.PRICE}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="addToCart">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element">  <button><a class="action-btn" (click)="clicked(element)">
-          Add to Cart
-          </a>
-        </button>    
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="view Image">
-        <th mat-header-cell *matHeaderCellDef>  Images </th>
-        <td mat-cell *matCellDef="let element">  <button><a class="action-btn" (click)="addToCart(book.id)">
-          View Images
-          </a>
-        </button>    
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table> -->
+    
 </div>
