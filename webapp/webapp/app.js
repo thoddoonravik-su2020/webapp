@@ -6,7 +6,7 @@ const path = require('path');
 var port = process.env.PORT || 3000
 var statsd = require('./statsd')
 var customlogger = require('./customlogger')
-var cloudwatchagent = require('./cloudwatchagent-config.json')
+
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
