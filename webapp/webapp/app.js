@@ -4,12 +4,23 @@ var bodyParser = require('body-parser')
 var app = express()
 const path = require('path');
 var port = process.env.PORT || 3000
-
+var responseTime = require('response-time')
 var statsd = require('./statsd')
 var customlogger = require('./customlogger')
 
 customlogger.error("try")
 statsd.increment("rryyy")
+
+app.use(responseTime(function (req, res, time) {
+  var stat = (req.method + req.url).toLowerCase()
+    .replace(/[:.]/g, '')
+    .replace(/\//g, '_')
+    logger.error(stat + " " +time)
+    if(!stat.includes("options"))
+    sdc.timing(stat, time)
+}))
+
+
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");

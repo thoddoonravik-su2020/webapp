@@ -59,3 +59,4 @@ workflows:
               only: master
       - generate_artifacts_deploy 
       
+      
