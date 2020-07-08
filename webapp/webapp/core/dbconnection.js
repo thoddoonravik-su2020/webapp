@@ -10,21 +10,15 @@ const sequelize = new Sequelize('csye6225', process.env.username, process.env.pa
   },
   logging: false
 });
-// const sequelize = new Sequelize("userdb", "root", "password", 
+// const sequelize = new Sequelize("csye6225", "root", "password", 
 // {
-
-//   host:"localhost", dialect: "mysql", operatorsAliases: 0,
-
-//   pool:{
-//     max: 5,
-//     min: 0,
-//     acquire: 30000,
-//     idle:10000
+//   host:"csye6225-su2020.chzo3raon9no.us-east-1.rds.amazonaws.com", dialect: "mysql",
+//   port: '3306',
+//   define: {
+//           timestamps: false
 //   },
-//      logging: false
-
+//   logging: false
 //   }
-// }
 // )
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
