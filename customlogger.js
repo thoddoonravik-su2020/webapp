@@ -6,4 +6,5 @@ log4js.configure({
 });
 
 const logger = log4js.getLogger("monitor");
+
 module.exports = logger;
