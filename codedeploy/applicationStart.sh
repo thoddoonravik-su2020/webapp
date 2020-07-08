@@ -21,5 +21,5 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
     -s
 
 
-node app.js > /dev/null 2> /dev/null < /dev/null &
+sudo node app.js > /dev/null 2> /dev/null < /dev/null &
 
