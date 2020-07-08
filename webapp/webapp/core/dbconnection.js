@@ -10,9 +10,9 @@ const sequelize = new Sequelize('csye6225', process.env.username, process.env.pa
   },
   logging: false
 });
-// const sequelize = new Sequelize("csye6225", "root", "password", 
+// const sequelize = new Sequelize("userdb", "root", "password", 
 // {
-//   host:"csye6225-su2020.chzo3raon9no.us-east-1.rds.amazonaws.com", dialect: "mysql",
+//   host:"localhost", dialect: "mysql",
 //   port: '3306',
 //   define: {
 //           timestamps: false
