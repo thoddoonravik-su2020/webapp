@@ -15,9 +15,7 @@ app.use(responseTime(function (req, res, time) {
   var stat = (req.method + req.url).toLowerCase()
     .replace(/[:.]/g, '')
     .replace(/\//g, '_')
-    logger.error(stat + " " +time)
-    if(!stat.includes("options"))
-    sdc.timing(stat, time)
+    statsd.timing(stat, time)
 }))
 
 
