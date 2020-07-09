@@ -3,6 +3,8 @@ Description=app.js
 After=network.target
 
 [Service]
+EnvironmentFile=/etc/environment
+User=ubuntu
 Type=simple
 Restart=always
 RestartSec=1
