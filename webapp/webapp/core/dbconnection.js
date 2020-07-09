@@ -10,6 +10,17 @@ const db = {}
    logging: false
  });
 
+
+// const sequelize = new Sequelize("userdb", "root", "password", 
+// {
+//   host:"localhost", dialect: "mysql",
+//  port: '3306',
+//  define: {
+//          timestamps: false
+//  },
+//  logging: false
+//  }
+
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
