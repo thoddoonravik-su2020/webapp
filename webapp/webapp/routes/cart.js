@@ -9,6 +9,7 @@ const db = require('../core/dbconnection')
 const ObjectId = require('sequelize')
 const Cart = require('../model/Cart')
 const User = require('../model/User')
+var customlogger = require('./../customlogger')
 users.use(cors())
 
 
@@ -34,6 +35,7 @@ users.post('/cart/:id', (req,res) => {
 
 //Update cart quantity
 users.put('/cart/:id',(req,res) =>{
+  customlogger.info("cart updated")
   const cont = Object.assign({},req.body)
   const result = (response) =>{
     res.status(200);
@@ -45,6 +47,7 @@ users.put('/cart/:id',(req,res) =>{
 
 // Delete cart
 users.delete('/cart/:id',(req,res) =>{
+  customlogger.info("book deleted")
   const result = (response) =>{
     res.status(200);
     res.json(response)
@@ -55,6 +58,7 @@ users.delete('/cart/:id',(req,res) =>{
 
 // Get cart details
     users.get('/cart/:id',(req,res)=>{ 
+      customlogger.info("book added to cart")
       console.log('/cart get findall')    
       const cart = Cart.findAll({
         where:{
