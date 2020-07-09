@@ -7,7 +7,7 @@ const db = {}
     define: {
         timestamps: false
     },
-    logging: false
+    logging: falses
   });
 
 
