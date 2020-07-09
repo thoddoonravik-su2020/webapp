@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  "api_url": "http://" + window.location.origin.split('//')[1].split(':')[0] + ":3000/",
+
+  api_url: "http://" + window.location.origin.split('//')[1].split(':')[0] + ":3000/",
   enableDebug: false
 };
 
