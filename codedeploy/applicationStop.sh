@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo killall -s KILL node
+sudo systemctl stop application.service
