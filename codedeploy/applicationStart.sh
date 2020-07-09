@@ -20,10 +20,13 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
     -c file:/opt/cloudwatchagent-config.json \
     -s
 
+systemctl daemon-reload
+systemctl restart application.service
 sudo mv application.service /lib/systemd/system
 chmod +x app.js
-sudo systemctl enable application.service
 sudo systemctl start application.service
+sudo systemctl enable application.service
+
 
 
 
