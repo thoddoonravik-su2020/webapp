@@ -1,8 +1,4 @@
 #!/bin/bash
-
-# killall -s KILL node
-
-
 sudo rm -rf /home/ubuntu/webapp
 
 sudo rm -rf /var/www/html/*

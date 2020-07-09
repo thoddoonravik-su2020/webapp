@@ -1,31 +1,28 @@
 const Sequelize = require('sequelize');
 const db = {}
+  const sequelize = new Sequelize('csye6225', process.env.username, process.env.password, {
+    host: process.env.rdsinstance,
+    dialect: 'mysql',
+    port: '3306',
+    define: {
+        timestamps: false
+    },
+    logging: false
+  });
 
-const sequelize = new Sequelize('csye6225', process.env.username, process.env.password, {
-  host: process.env.rdsinstance,
-  dialect: 'mysql',
-  port: '3306',
-  define: {
-      timestamps: false
-  },
-  logging: false
-});
+
 // const sequelize = new Sequelize("userdb", "root", "password", 
 // {
+//   host:"localhost", dialect: "mysql",
+//  port: '3306',
+//  define: {
+//          timestamps: false
+//  },
+//  logging: false
+//  })
 
-//   host:"localhost", dialect: "mysql", operatorsAliases: 0,
 
-//   pool:{
-//     max: 5,
-//     min: 0,
-//     acquire: 30000,
-//     idle:10000
-//   },
-//      logging: false
 
-//   }
-// }
-// )
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 

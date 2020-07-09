@@ -56,6 +56,11 @@ bookDetails: BookDetails = {
 
 onEdit(cart : CartItems){
   var quantity = prompt("Please enter quantity");
+  var q: number = parseFloat(quantity);
+  var q2 : number = parseInt(quantity);
+   if(q-q2 != 0){
+          alert("Enter a whole number value");
+   }else{
     var q: number = +quantity;
    this.auth.getBook(cart.bookid).subscribe(res =>{
      this.bookDetails = res;     
@@ -87,7 +92,9 @@ onEdit(cart : CartItems){
           alert("Please enter a quantity greater than 0");
       }
     }
+  
    })
+  }
 }
 
 onDelete(cart : CartItems){

@@ -67,9 +67,13 @@ export class BuyerComponent {
           alert("Book already exists in cart. Please update in cart");
       }else{
         var quantity = prompt("Please enter quantity");
-        var q: number = +quantity;
-    
-        if (!Number.isNaN(q) && q <= book.quantity && q > 0){
+        var q: number = parseFloat(quantity);
+        var q2 : number = parseInt(quantity);
+        if(q-q2 != 0){
+          alert("Enter a whole number value");
+        }
+     
+        else if (!Number.isNaN(q) && q <= book.quantity && q > 0){
           let body = {
             "bookid" : book.id,
             "userid" : this.bookDetails.userid,
@@ -98,35 +102,7 @@ export class BuyerComponent {
       }
     })
     
-    // var quantity = prompt("Please enter quantity");
-    // var q: number = +quantity;
-
-    // if (!Number.isNaN(q) && q <= book.quantity && q > 0){
-    //   let body = {
-    //     "bookid" : book.id,
-    //     "userid" : this.bookDetails.userid,
-    //     "quantity" : q,
-    //     "PRICE" : book.PRICE,
-    //     "title" : book.title
-    //   }
-    //   console.log(body)
-
-    //   this.auth.addToCart(body).subscribe( x =>{
-    //     alert("Added to cart successfully");
-    //   });
-
-    // }
-    // else{
-    //   if(Number.isNaN(q)){
-    //     alert("Please enter a valid quantity");
-    //   }
-    //   else if(q > book.quantity){
-    //     alert("Please enter a lesser quantity. Available quantity is " + book.quantity);
-    //   }
-    //   else if(q <= 0){
-    //       alert("Please enter a quantity greater than 0");
-    //   }
-    // }   
+      
   }
   
   viewImages(id : any){
@@ -148,17 +124,6 @@ export class BuyerComponent {
   clicked(ele : any){
     console.log(ele)
   }
-
-// addToCart(y:any){
-//   console.log('cart component')
- 
-//   let booktoAdd = this.books.find(x=> x.id == y);
-//   console.log(booktoAdd);
-//   this.auth.addToCart(booktoAdd).subscribe(x=>{                                                             
-//   })
-//    this.router.navigate(['/cart']);
-
-// }
 
 
 
