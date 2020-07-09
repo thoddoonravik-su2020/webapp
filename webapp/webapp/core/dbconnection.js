@@ -8,9 +8,13 @@ const db = {}
         timestamps: false
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
     logging: false
 =======
     logging: falses
+>>>>>>> a
+=======
+    logging: false
 >>>>>>> a
   });
 

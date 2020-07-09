@@ -127,19 +127,26 @@ users.post('/seller', (req, res) => {
                 res.json(register);
             };
 <<<<<<< HEAD
+<<<<<<< HEAD
             promise.then(result)
 
 =======
 >>>>>>> a
+=======
+            promise.then(result);
+>>>>>>> a
             promise.then(x=>{
             var post_addbook_query = new Date().getTime();
-
               var duration = (post_addbook_query - pre_addbook_query ) / 1000;
               statsd.timing("sql_addbook_update", duration);
+<<<<<<< HEAD
 <<<<<<< HEAD
              })
 =======
              }).then(result)
+>>>>>>> a
+=======
+             });
 >>>>>>> a
         }
     }
