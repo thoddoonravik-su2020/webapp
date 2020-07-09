@@ -1,14 +1,14 @@
 const Sequelize = require('sequelize');
 const db = {}
- const sequelize = new Sequelize('csye6225', process.env.username, process.env.password, {
-   host: process.env.rdsinstance,
-   dialect: 'mysql',
-   port: '3306',
-   define: {
-       timestamps: false
-   },
-   logging: false
- });
+  const sequelize = new Sequelize('csye6225', process.env.username, process.env.password, {
+    host: process.env.rdsinstance,
+    dialect: 'mysql',
+    port: '3306',
+    define: {
+        timestamps: false
+    },
+    logging: false
+  });
 
 
 // const sequelize = new Sequelize("userdb", "root", "password", 
@@ -20,6 +20,7 @@ const db = {}
 //  },
 //  logging: false
 //  })
+
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
