@@ -80,6 +80,7 @@ users.get('/:id',(req,res) =>{
 
 //POST
 users.post('/seller', (req, res) => {
+  
     const today = new Date()
     
     // Save the book with images
@@ -150,9 +151,10 @@ users.get('/seller/:id', (req, res) => {
 
 //UPDATE BOOKS
 users.put('/seller/:id', function (req, res, next) {
-    const cont = Object.assign({},req.body)
+    const cont = Object.assign({},req.body)    
+
+    var pre_updt_query = new Date().getTime();
     const promise =Book.update(cont, {where :{id : cont.id}});
-    const result = (resp) => { res.status(200); res.json(resp)}
     const result1 = (register) => {
       let bookid = cont.id;
       console.log(bookid)
@@ -164,23 +166,38 @@ users.put('/seller/:id', function (req, res, next) {
               Key: currentTime.getTime().toString(),
               Body: element
           };
+          var pre_s3_query = new Date().getTime();
           s3.upload(params).promise().then(x => {
+            var post_s3_query = new Date().getTime();
+            var duration = (post_s3_query - pre_s3_query) / 1000;
+            statsd.timing("sql_s3_add", duration);
+
                   let body = {
                       "bookid": bookid,
                       "imagedata": x.Key
                   }
                   const tosave = imagesmodel.build(body);
-                  tosave.save();
+                  var pre_img_query = new Date().getTime();
+                  tosave.save().then(r=>{
+                    var post_img_query = new Date().getTime();
+                    var duration = (post_img_query - pre_img_query) / 1000;
+                    statsd.timing("sql_img_update", duration);
+                  });
           });
-      });
+      })
       res.status(200);
       res.json(register);
   };
-     promise.then(result1)
+     promise.then(x=>{
+      var post_updt_query = new Date().getTime();
+      var duration = (post_updt_query - pre_updt_query) / 1000;
+      statsd.timing("sql_book_update", duration);
+     }).then(result1)
  
    })
 
-  
+
+
 
       //DELETE BOOKS
     users.delete('/seller/:id', function (req, res, next) {
