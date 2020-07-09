@@ -3,6 +3,8 @@ Description=app.js
 After=network.target
 
 [Service]
+EnvironmentFile=/etc/environment
+User=ubuntu
 Type=simple
 ExecStart=/usr/bin/node /home/ubuntu/webapp/webapp/webapp/app.js
 Restart=on-failure
