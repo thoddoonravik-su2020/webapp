@@ -16,6 +16,8 @@ app.use(responseTime(function (req, res, time) {
     .replace(/[:.]/g, '')
     .replace(/\//g, '_')
     statsd.timing(stat, time)
+    statsd.increment(stat);
+
 }))
 
 

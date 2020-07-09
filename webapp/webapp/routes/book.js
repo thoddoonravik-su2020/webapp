@@ -10,6 +10,7 @@ const ObjectId = require('sequelize')
 const s3 = require('../s3bucket')
 const config = require('../config')
 const imagesmodel = require('../model/Images')
+const statsd = require('../statsd')
 users.use(cors())
 
 process.env.SECRET_KEY = 'secret'
@@ -17,8 +18,9 @@ const Op = Sequelize.Op
 
 //GET REQUEST FOR BOOKS localhost3000:/seller/books
 users.get('/seller/images/:id',(req,res)=>{
-
+ 
   const bookid = req.params.id;
+  statsd.increment(`${bookid}`);
   var imgs = [];
   const s3buckOp = (param, id) => {
       return s3.getObject(param).promise().then(x => {
@@ -124,6 +126,7 @@ users.post('/seller', (req, res) => {
 
 //GET BOOKS
 users.get('/seller/:id', (req, res) => {
+  
     // var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
     Book.findAll({
       where: {
@@ -178,7 +181,7 @@ users.put('/seller/:id', function (req, res, next) {
 
   
 
-    //  //DELETE BOOKS
+      //DELETE BOOKS
     users.delete('/seller/:id', function (req, res, next) {
       console.log(req.body)
       console.log('deleting')
@@ -204,7 +207,7 @@ users.put('/seller/:id', function (req, res, next) {
 
 
 
-    ///// Delete the images from s3 bucket
+    // Delete the images from s3 bucket
     const s3buckOp = (param,id) => {
       return s3.deleteObject(param).promise().then(x => {
         console.log(x);
