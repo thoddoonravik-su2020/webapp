@@ -11,7 +11,7 @@ const s3 = require('../s3bucket')
 const config = require('../config')
 const imagesmodel = require('../model/Images')
 const statsd = require('../statsd')
-var customlogger = require('..customlogger')
+var customlogger = require('../customlogger')
 users.use(cors())
 
 process.env.SECRET_KEY = 'secret'
