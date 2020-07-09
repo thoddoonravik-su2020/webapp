@@ -21,6 +21,7 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
     -s
 
 sudo mv application.service /etc/systemd/system
-sudo systemctl start application.service
-sudo systemctl enable application.service
+systemctl enable application.service
+systemctl start application.service
+
 
