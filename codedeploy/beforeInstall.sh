@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sudo killall -s KILL node
-
 
 sudo rm -rf /home/ubuntu/webapp
 
