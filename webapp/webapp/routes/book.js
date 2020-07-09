@@ -176,7 +176,8 @@ users.put('/seller/:id', function (req, res, next) {
           s3.upload(params).promise().then(x => {
             var post_s3_query = new Date().getTime();
             var duration = (post_s3_query - pre_s3_query) / 1000;
-            statsd.timing("sql_s3_update", duration);
+            statsd.timing("sql_s3_add", duration);
+
 
                   let body = {
                       "bookid": bookid,
