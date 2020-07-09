@@ -18,6 +18,7 @@ const Op = Sequelize.Op
 
 //GET REQUEST FOR BOOKS localhost3000:/seller/books
 users.get('/seller/images/:id',(req,res)=>{
+  customlogger.info("view book")
  
   const bookid = req.params.id;
   statsd.increment(`${bookid}`);
