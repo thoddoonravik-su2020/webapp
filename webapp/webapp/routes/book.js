@@ -11,6 +11,7 @@ const s3 = require('../s3bucket')
 const config = require('../config')
 const imagesmodel = require('../model/Images')
 const statsd = require('../statsd')
+var customlogger = require('./customlogger')
 users.use(cors())
 
 process.env.SECRET_KEY = 'secret'
@@ -91,6 +92,7 @@ users.post('/seller', (req, res) => {
         if (isExist != null) {
             res.json({ message: "Book already Exist" })
         } else {
+          var pre_addbook_query = new Date().getTime();
             const promise = book.save();
             const result = (register) => {
                 let bookid = register.dataValues.id;
@@ -113,7 +115,11 @@ users.post('/seller', (req, res) => {
                 });
                 res.json(register);
             };
-            promise.then(result);
+            promise.then(x=>{
+              var post_updt_query = new Date().getTime();
+              var duration = (post_addbook_query - pre_addbook_query ) / 1000;
+              statsd.timing("sql_addbook_update", duration);
+             }).then(result)
         }
     }
 
@@ -170,7 +176,7 @@ users.put('/seller/:id', function (req, res, next) {
           s3.upload(params).promise().then(x => {
             var post_s3_query = new Date().getTime();
             var duration = (post_s3_query - pre_s3_query) / 1000;
-            statsd.timing("sql_s3_add", duration);
+            statsd.timing("sql_s3_update", duration);
 
                   let body = {
                       "bookid": bookid,
@@ -216,8 +222,13 @@ users.put('/seller/:id', function (req, res, next) {
 
       // delete the book
     const bookDel = (resp) =>{
+      var pre_bookdelete_query = new Date().getTime();
       const r = Book.destroy({where :{id : req.params.id}});
-      r.then(response)
+      r.then(x=>{
+        var post_bookdelete_query = new Date().getTime();
+        var duration = (post_bookdelete_query - pre_bookdelete_query) / 1000;
+        statsd.timing("sql_book_delete", duration);
+       }).then(response)
     };
 
 
