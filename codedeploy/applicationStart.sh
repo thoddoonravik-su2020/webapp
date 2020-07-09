@@ -7,7 +7,7 @@ ng build
 cd dist/frontend/
 sudo cp * /var/www/html/
 cd /home/ubuntu/webapp/webapp/webapp
-chmod +x app.js
+
 
 
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a stop
@@ -24,7 +24,7 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
 sudo systemctl daemon-reload
 sudo systemctl restart application.service
 sudo mv application.service /lib/systemd/system
-
+sudo chmod +x app.js
 sudo systemctl start application.service
 sudo systemctl enable application.service
 
