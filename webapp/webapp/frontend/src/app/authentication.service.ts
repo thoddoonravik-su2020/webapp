@@ -45,8 +45,10 @@ export interface CartItems{
   id:number,
   userid: number,
   quantity: number,
-  price:number
-
+  PRICE:number,
+  title: string,
+  bookid : number,
+  message : string
 }
 
 export interface Images{
@@ -109,6 +111,15 @@ export class AuthenticationService {
     return this.http.get(environment.apiUrl + '/books/buyer/' +id)
   }
 
+  public viewBookImages(id : any){
+    return this.http.get(environment.apiUrl+'/seller/images/'+id)
+  }
+
+  public deleteBookImage(id : any){
+    return this.http.delete(environment.apiUrl+'/books/seller/image/'+id,{
+      headers: { Authorization: ` ${this.getToken()}` }
+    })
+  }
 
 
   public isLoggedIn(): boolean {
@@ -173,14 +184,31 @@ export class AuthenticationService {
   }
 
 
-  public putBookDetails(book : BookDetails): Observable<any> {
-    return this.http.put(environment.apiUrl + `/books/seller/`+book.id,book, {
+  public putBookDetails(book : BookDetails,image : any[]): Observable<any> {
+    let body = {
+      isbn: book.isbn,
+      title: book.title,
+      authors: book.authors,
+      publication_date: '',
+      quantity: book.quantity,
+      PRICE: book.PRICE,
+      userid: book.userid,
+      id: book.id,
+      images: image
+    }
+    return this.http.put(environment.apiUrl + `/books/seller/`+book.id,body, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
 
   public post(user: TokenPayload): Observable<any> {
     return this.http.put(environment.apiUrl + `/users/register`, user)
+  }
+
+  getBook(id : any): Observable<any>{
+    return this.http.get(environment.apiUrl+ `/books/`+id,{
+      headers: { Authorization: ` ${this.getToken()}` } 
+    })
   }
 
   deleteBook(book : BookDetails): Observable<any>{
@@ -219,6 +247,31 @@ export class AuthenticationService {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
+
+  //Find using User ID and Book ID
+  public findInCart(userid : any,bookid : any): Observable<any> {
+  
+    return this.http.get(environment.apiUrl+`/buyer/cart/check/`+userid+`/`+bookid,{
+      headers: { Authorization: ` ${this.getToken()}` }
+    })
+  }
+
+  // Update Cart
+  public updateCart(cart : CartItems): Observable<any>{
+    return this.http.put(environment.apiUrl+`/buyer/cart/`+cart.id,cart,{
+      headers: { Authorization: ` ${this.getToken()}` 
+    }
+    })
+  }
+
+  //Delete Cart
+  public deleteCart(id : any): Observable<any>{
+    return this.http.delete(environment.apiUrl+`/buyer/cart/`+id,{
+      headers: { Authorization: ` ${this.getToken()}` }
+    })
+  }
+
+
 
   public logout(): void {
     this.token = ''

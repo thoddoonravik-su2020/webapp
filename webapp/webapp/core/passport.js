@@ -1,4 +1,3 @@
-
 var User = LocalStrategy
 const LocalStrategy = require('passport-local').Strategy;
 const mysql = require('mysql');

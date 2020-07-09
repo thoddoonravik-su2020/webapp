@@ -19,6 +19,10 @@ import {UserdetailsComponent} from './userdetails/userdetails.component';
 import { BuyerComponent } from './buyer/buyer.component';
 import { CartComponent } from './cart/cart.component'
 import { ImageViewComponent } from './imageView/imageView.component'
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTableModule,MatTable} from '@angular/material/table';
+
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -56,7 +60,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule,
+    MatTableModule
   ],
   entryComponents:[
     ImageViewComponent

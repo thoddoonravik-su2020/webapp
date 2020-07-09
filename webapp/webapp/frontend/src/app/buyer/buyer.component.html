@@ -1,27 +1,39 @@
 <div class="col s9">
-  <table class="responsive-table highlight">
+  <!-- class="col s9" -->
+  <table style="margin-left: auto; margin-right: auto; margin-top: 100px;" class="responsive-table highlight">
       <thead>
         <tr>
-          <th>BooK ID</th>
+          <th>Book ID</th>
+          <th></th><th></th>
           <th>Book Title</th>
+          <th></th><th></th>
           <th>Book Quantity</th>
+          <th></th><th></th>
           <th>Book Price</th>
           <th></th>
         </tr>
       </thead>
       <tr *ngFor="let book of books">
-        <td>{{book.id}}</td>
-        <td>{{book.title}}</td>
+        <td style="text-align: center;">{{book.id}}</td>
         <td></td><td></td>
-        <td>{{book.quantity}}</td>
+        <td style="text-align: center;">{{book.title}}</td>
         <td></td><td></td>
-        <td>{{book.PRICE}}</td>
+        <td style="text-align: center;">{{book.quantity}}</td>
+        <td></td><td></td>
+        <td style="text-align: center;">{{book.PRICE}}</td>
+        <td></td><td></td>        <td></td><td></td>
+
         <td>
-            <button><a class="action-btn" (click)="addToCart(book.id)">
+            <button><a class="action-btn" (click)="addToCart(book)">
               Add to Cart
             </a>
           </button>
         </td>
+        <td></td><td></td>
+        <td>
+            <button><a class="action-btn" (click)="viewImages(book.id)">View Images</a></button>
+        </td>
       </tr>
     </table>
+    
 </div>
