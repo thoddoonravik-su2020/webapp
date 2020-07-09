@@ -21,6 +21,7 @@ const sequelize = new Sequelize("userdb", "root", "password",
  logging: false
  })
 
+
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
