@@ -1,2 +1,2 @@
 #!/bin/bash
-killall -s KILL node
+sudo killall -s KILL node
