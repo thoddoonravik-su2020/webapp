@@ -9,6 +9,7 @@ sudo cp * /var/www/html/
 cd /home/ubuntu/webapp/webapp/webapp
 
 
+
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a stop
 
 sudo mv cloudwatchagent-config.json /opt/
@@ -20,10 +21,10 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
     -c file:/opt/cloudwatchagent-config.json \
     -s
 
-systemctl daemon-reload
-systemctl restart application.service
+sudo systemctl daemon-reload
+sudo systemctl restart application.service
 sudo mv application.service /lib/systemd/system
-chmod +x app.js
+sudo chmod +x app.js
 sudo systemctl start application.service
 sudo systemctl enable application.service
 
