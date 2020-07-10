@@ -54,7 +54,7 @@ users.get('/seller/images/:id',(req,res)=>{
 
 //GET REQUEST FOR BOOKS
 users.get('/buyer/:id',(req,res)=>{
-    
+  console.log("get request")
   console.log(req.params.id);
   const book = Book.findAll({
     where:{
