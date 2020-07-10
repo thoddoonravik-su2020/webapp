@@ -22,7 +22,7 @@ users.get('/seller/images/:id',(req,res)=>{
   customlogger.info("view book")
  
   const bookid = req.params.id;
-  statsd.increment('viewed book id + '`${bookid}`);
+  statsd.increment('viewed book id' + bookid);
   var imgs = [];
   const s3buckOp = (param, id) => {
       return s3.getObject(param).promise().then(x => {
