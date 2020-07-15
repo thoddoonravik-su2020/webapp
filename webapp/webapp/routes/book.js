@@ -138,10 +138,6 @@ users.post('/seller', (req, res) => {
 })
 
 
-
-
-
-
 //GET BOOKS
 users.get('/seller/:id', (req, res) => {
   
@@ -272,7 +268,6 @@ users.put('/seller/:id', function (req, res, next) {
   imgResp.then(imgDelete);
 
    })
-
 
    // Delete Image
    users.delete('/seller/image/:id', function(req,res){

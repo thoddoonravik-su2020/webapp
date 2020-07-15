@@ -9,5 +9,4 @@ const s3 = new AWS.S3({
     secretAccessKey: SECRET
 });
 
-
 module.exports = s3;
