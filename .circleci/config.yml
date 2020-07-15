@@ -58,5 +58,7 @@ workflows:
             branches:
               only: master
       - generate_artifacts_deploy: 
-     
+          filters:
+            branches:
+              only: master
       
