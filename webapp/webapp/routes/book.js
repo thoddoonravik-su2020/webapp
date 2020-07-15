@@ -22,7 +22,9 @@ users.get('/seller/images/:id',(req,res)=>{
   customlogger.info("view book")
  
   const bookid = req.params.id;
-  statsd.increment(`${bookid}`);
+
+  statsd.increment('viewed book id' + bookid);
+
   var imgs = [];
   const s3buckOp = (param, id) => {
       return s3.getObject(param).promise().then(x => {
@@ -104,7 +106,12 @@ users.post('/seller', (req, res) => {
                         Key: currentTime.getTime().toString(),
                         Body: element
                     };
+                    var pre_s3_query = new Date().getTime();
                     s3.upload(params).promise().then(x => {
+                      var post_s3_query = new Date().getTime();
+                      var duration = (post_s3_query - pre_s3_query) / 1000;
+                      statsd.timing("sql_s3_add", duration);
+
                             let body = {
                                 "bookid": bookid,
                                 "imagedata": x.Key
@@ -115,12 +122,14 @@ users.post('/seller', (req, res) => {
                 });
                 res.json(register);
             };
-            promise.then(result);
+            promise.then(result)
+
             promise.then(x=>{
             var post_addbook_query = new Date().getTime();
+
               var duration = (post_addbook_query - pre_addbook_query ) / 1000;
               statsd.timing("sql_addbook_update", duration);
-             });
+             })
         }
     }
 
@@ -263,7 +272,6 @@ users.put('/seller/:id', function (req, res, next) {
   imgResp.then(imgDelete);
 
    })
-
 
    // Delete Image
    users.delete('/seller/image/:id', function(req,res){
