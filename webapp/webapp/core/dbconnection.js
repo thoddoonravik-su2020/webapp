@@ -18,6 +18,16 @@ const db = {}
 >>>>>>> a
   });
 
+  // const sequelize = new Sequelize('csye6225', root, password, {
+  //   host: 'csye6225-su2020.chzo3raon9no.us-east-1.rds.amazonaws.com',
+  //   dialect: 'mysql',
+  //   port: '3306',
+  //   define: {
+  //       timestamps: false
+  //   },
+  //   logging: false
+  // });
+
 
 // const sequelize = new Sequelize("userdb", "root", "password", 
 // {
