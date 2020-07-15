@@ -23,12 +23,18 @@ users.get('/seller/images/:id',(req,res)=>{
  
   const bookid = req.params.id;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   statsd.increment('viewed book id' + bookid);
 
 =======
   statsd.increment(`${bookid}`);
 >>>>>>> a
+=======
+
+  statsd.increment('viewed book id' + bookid);
+
+>>>>>>> A7 (#143)
   var imgs = [];
   const s3buckOp = (param, id) => {
       return s3.getObject(param).promise().then(x => {
