@@ -7,7 +7,11 @@ const db = {}
     define: {
         timestamps: false
     },
+<<<<<<< HEAD
     logging: false
+=======
+    logging: falses
+>>>>>>> a
   });
 
 

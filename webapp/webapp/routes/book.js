@@ -22,9 +22,13 @@ users.get('/seller/images/:id',(req,res)=>{
   customlogger.info("view book")
  
   const bookid = req.params.id;
+<<<<<<< HEAD
 
   statsd.increment('viewed book id' + bookid);
 
+=======
+  statsd.increment(`${bookid}`);
+>>>>>>> a
   var imgs = [];
   const s3buckOp = (param, id) => {
       return s3.getObject(param).promise().then(x => {
@@ -122,14 +126,21 @@ users.post('/seller', (req, res) => {
                 });
                 res.json(register);
             };
+<<<<<<< HEAD
             promise.then(result)
 
+=======
+>>>>>>> a
             promise.then(x=>{
             var post_addbook_query = new Date().getTime();
 
               var duration = (post_addbook_query - pre_addbook_query ) / 1000;
               statsd.timing("sql_addbook_update", duration);
+<<<<<<< HEAD
              })
+=======
+             }).then(result)
+>>>>>>> a
         }
     }
 
@@ -246,6 +257,34 @@ users.put('/seller/:id', function (req, res, next) {
 
 
 
+<<<<<<< HEAD
+
+    // Delete the images from s3 bucket
+    const s3buckOp = (param,id) => {
+      return s3.deleteObject(param).promise().then(x => {
+        console.log(x);
+        imagesmodel.destroy({where :{ id: id}})
+      }).catch(err => {
+        res.send('error: ' + err)
+      });      
+  }
+
+    //delete all images
+  const imgDelete = (results) => {
+      let promises = []
+      results.forEach(element => {
+          let params = { Bucket: config.bucket_name, Key: element.dataValues.imagedata };
+          let id = element.dataValues.id;
+          promises.push(s3buckOp(params,id));
+      });
+      Promise.all(promises).then(bookDel)
+  }
+    //get all images for the book
+  const imgResp = imagesmodel.findAll({ where :{bookid : req.params.id} })
+  imgResp.then(imgDelete);
+
+   })
+=======
 
     // Delete the images from s3 bucket
     const s3buckOp = (param,id) => {
@@ -285,6 +324,7 @@ users.put('/seller/:id', function (req, res, next) {
         Bucket: config.bucket_name,
         Key: imgData.dataValues.imagedata
         };
+>>>>>>> a
 
         s3.deleteObject(params).promise().then(x => {
           console.log(x);
@@ -300,4 +340,33 @@ users.put('/seller/:id', function (req, res, next) {
     images3Id.then(result);
    })
 
+<<<<<<< HEAD
+   // Delete Image
+   users.delete('/seller/image/:id', function(req,res){
+    const imgId = req.params.id;
+
+     const images3Id = imagesmodel.findOne({where : {id : imgId}})
+     const result = (imgData) => {if(images3Id){
+       console.log(imgData.dataValues.imagedata)
+       const params = {
+        Bucket: config.bucket_name,
+        Key: imgData.dataValues.imagedata
+        };
+
+        s3.deleteObject(params).promise().then(x => {
+          console.log(x);
+          imagesmodel.destroy({where :{ id: imgId}})
+        }).catch(err => {
+          res.send('error: ' + err)
+        });
+
+        res.status(200);
+        res.json('deleted')
+     };
+    }
+    images3Id.then(result);
+   })
+
+=======
+>>>>>>> a
 module.exports = users
