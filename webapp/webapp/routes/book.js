@@ -23,7 +23,11 @@ users.get('/seller/images/:id',(req,res)=>{
  
   const bookid = req.params.id;
 
+<<<<<<< HEAD
+  statsd.increment(`${bookid}`);
+=======
   statsd.increment('viewed book id' + bookid);
+>>>>>>> 37cd653c4446ad2203ad93807406807ca3efa6ba
 
   var imgs = [];
   const s3buckOp = (param, id) => {
@@ -129,7 +133,7 @@ users.post('/seller', (req, res) => {
 
               var duration = (post_addbook_query - pre_addbook_query ) / 1000;
               statsd.timing("sql_addbook_update", duration);
-             })
+            }).then(result)
         }
     }
 
