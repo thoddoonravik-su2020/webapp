@@ -22,8 +22,8 @@ users.get('/seller/images/:id',(req,res)=>{
   customlogger.info("view book")
  
   const bookid = req.params.id;
-
   statsd.increment(`${bookid}`);
+
 
  var imgs = [];
   const s3buckOp = (param, id) => {
@@ -122,18 +122,14 @@ users.post('/seller', (req, res) => {
                 });
                 res.json(register);
             };
-            promise.then(result)
+                      promise.then(result)
 
             promise.then(x=>{
             var post_addbook_query = new Date().getTime();
 
               var duration = (post_addbook_query - pre_addbook_query ) / 1000;
               statsd.timing("sql_addbook_update", duration);
-<<<<<<< HEAD
             }).then(result)
-=======
-             })
->>>>>>> 820ded08ad3a9b8ee6096658621e08f256d32c1b
         }
     }
 
