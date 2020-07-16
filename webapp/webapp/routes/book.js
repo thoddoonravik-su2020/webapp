@@ -22,14 +22,10 @@ users.get('/seller/images/:id',(req,res)=>{
   customlogger.info("view book")
  
   const bookid = req.params.id;
-
-<<<<<<< HEAD
   statsd.increment(`${bookid}`);
-=======
-  statsd.increment('viewed book id' + bookid);
->>>>>>> 37cd653c4446ad2203ad93807406807ca3efa6ba
 
-  var imgs = [];
+
+ var imgs = [];
   const s3buckOp = (param, id) => {
       return s3.getObject(param).promise().then(x => {
 
@@ -126,7 +122,7 @@ users.post('/seller', (req, res) => {
                 });
                 res.json(register);
             };
-            promise.then(result)
+                      promise.then(result)
 
             promise.then(x=>{
             var post_addbook_query = new Date().getTime();
