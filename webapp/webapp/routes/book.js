@@ -25,7 +25,7 @@ users.get('/seller/images/:id',(req,res)=>{
 
   statsd.increment(`${bookid}`);
 
-  var imgs = [];
+ var imgs = [];
   const s3buckOp = (param, id) => {
       return s3.getObject(param).promise().then(x => {
 
