@@ -138,10 +138,6 @@ users.post('/seller', (req, res) => {
 })
 
 
-
-
-
-
 //GET BOOKS
 users.get('/seller/:id', (req, res) => {
   
