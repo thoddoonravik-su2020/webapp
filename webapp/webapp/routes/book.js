@@ -129,7 +129,11 @@ users.post('/seller', (req, res) => {
 
               var duration = (post_addbook_query - pre_addbook_query ) / 1000;
               statsd.timing("sql_addbook_update", duration);
+<<<<<<< HEAD
             }).then(result)
+=======
+             })
+>>>>>>> 820ded08ad3a9b8ee6096658621e08f256d32c1b
         }
     }
 
