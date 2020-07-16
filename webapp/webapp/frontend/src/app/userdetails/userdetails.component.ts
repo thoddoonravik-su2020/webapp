@@ -9,11 +9,21 @@ import { UserDetails } from 'src/authentication-service';
 export class UserdetailsComponent {
   credentials: TokenPayload = {
     id: 0,
-    first_name: "",
-    last_name: "",
+    firstname: "",
+    lastname: "",
     email: "",
     password: ""
   };
+
+  cred: TokenPayload = {
+    id: 0,
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: ""
+  };
+
+
 
   users : TokenPayload[];
 
@@ -21,8 +31,7 @@ export class UserdetailsComponent {
     this.auth.profile().subscribe(
       user => {
         this.credentials = user
-        // console.log('into constructor subscribe')
-        // this.auth.updateUser(user).subscribe(X=>{alert('Successfully updated !!');})
+
       },
       err => {
         console.error(err)
@@ -31,7 +40,15 @@ export class UserdetailsComponent {
   }
 
 
-  userEdit(){       
-         this.auth.updateUser(this.credentials).subscribe(X=>{alert('Successfully updated !!');})
+  userEdit(){    
+    this.cred={
+      id: this.credentials.id,
+      firstname: this.credentials.firstname,
+      lastname: this.credentials.lastname,
+      email: this.credentials.email,
+      password: btoa(this.credentials.password)
+    }
+       
+         this.auth.updateUser(this.cred).subscribe(X=>{alert('Successfully updated !!');})
   }
 }

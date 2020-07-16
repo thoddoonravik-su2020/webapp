@@ -8,16 +8,33 @@ import { Router } from "@angular/router";
 export class RegisterComponent {
   credentials: TokenPayload = {
     id: 0,
-    first_name: "",
-    last_name: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: ""
+  };
+  cred: TokenPayload = {
+    id: 0,
+    firstname: "",
+    lastname: "",
     email: "",
     password: ""
   };
 
+
   constructor(private auth: AuthenticationService, private router: Router) {}
 
   register() {
-    this.auth.register(this.credentials).subscribe(
+    this.cred={
+      id: this.credentials.id,
+      firstname: this.credentials.firstname,
+      lastname: this.credentials.lastname,
+      email: this.credentials.email,
+      password: btoa(this.credentials.password)
+    }
+    
+  
+    this.auth.register(this.cred).subscribe(
       () => {
         this.router.navigateByUrl("/login");
       },

@@ -54,10 +54,6 @@ export class BookComponent {
     })
   }
 
-  // seller() {
-  //   console.log(this.bookDetails)
-  // }
-
   
 
   seller() {
@@ -72,7 +68,11 @@ export class BookComponent {
 	      authors:'',
 	      quantity:0,
         PRICE:0
+<<<<<<< HEAD
       }                                     
+=======
+      }                                                      
+>>>>>>> 96ff18d546162a59177e08048016767126c98545
     });
 }
 
@@ -109,7 +109,7 @@ export class BookComponent {
       PRICE:book.PRICE
     }
     this.bookDetails = this.editBook;
-      this.btnUpdate = false;
+    this.btnUpdate = false;
     this.btnAdd = true;   
   }
 
