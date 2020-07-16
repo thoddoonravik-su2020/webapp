@@ -23,7 +23,9 @@ users.get('/seller/images/:id',(req,res)=>{
  
   const bookid = req.params.id;
 
+
   statsd.increment(`${bookid}`);
+
 
  var imgs = [];
   const s3buckOp = (param, id) => {
@@ -122,7 +124,7 @@ users.post('/seller', (req, res) => {
                 });
                 res.json(register);
             };
-            promise.then(result)
+                      promise.then(result)
 
             promise.then(x=>{
             var post_addbook_query = new Date().getTime();
