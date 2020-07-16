@@ -14,5 +14,8 @@ const s3 = new AWS.S3({
     secretAccessKey: SECRET
 });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 37cd653c4446ad2203ad93807406807ca3efa6ba
 module.exports = s3;
