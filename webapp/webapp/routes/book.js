@@ -22,6 +22,8 @@ users.get('/seller/images/:id',(req,res)=>{
   customlogger.info("view book")
  
   const bookid = req.params.id;
+
+
   statsd.increment(`${bookid}`);
 
 
