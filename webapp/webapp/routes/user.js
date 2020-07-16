@@ -32,7 +32,11 @@ users.post('/register', (req, res) => {
     //TODO bcrypt
     .then(user => {
       if (!user) {
-        const hash = bcrypt.hashSync(userData.password, 10)
+        let buff = new Buffer(userData.password, 'base64');
+
+        let text = buff.toString('ascii');
+        console.log(text)
+        const hash = bcrypt.hashSync(text, 10)
         userData.password = hash
         User.create(userData)
           .then(user => {
@@ -61,7 +65,11 @@ users.put('/profile/:id', (req, res) =>{
 
   const cont = Object.assign({},req.body);
   console.log(cont);
-  const hash = bcrypt.hashSync(cont.password, 10)
+  let buff = new Buffer(cont.password, 'base64');
+
+  let text = buff.toString('ascii');
+  console.log(text)
+  const hash = bcrypt.hashSync(text, 10)
   cont.password = hash
   console.log(cont);
   console.log('into put method')
@@ -80,7 +88,12 @@ users.post('/login', (req, res) => {
          }
   })
     .then(user => {
-      if (bcrypt.compareSync(req.body.password, user.password)) {
+      let buff = new Buffer(req.body.password, 'base64');
+
+      let text = buff.toString('ascii');
+      console.log(text)
+  
+      if (bcrypt.compareSync(text, user.password)) {
         
         let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
           expiresIn: 1440

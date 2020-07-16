@@ -1,12 +1,12 @@
 import { Component } from '@angular/core'
-import { AuthenticationService, UserDetails } from '../authentication.service'
+import { AuthenticationService, TokenPayload } from '../authentication.service'
 import { Router } from '@angular/router'
 
 @Component({
   templateUrl: './profile.component.html'
 })
 export class ProfileComponent {
-  details: UserDetails
+  details: TokenPayload
 
   constructor(private auth: AuthenticationService, private route: Router) {}
 
