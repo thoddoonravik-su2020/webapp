@@ -1,12 +1,23 @@
 import { Component } from '@angular/core'
-import { AuthenticationService, UserDetails } from '../authentication.service'
+import { AuthenticationService, TokenPayload } from '../authentication.service'
 import { Router } from '@angular/router'
 
 @Component({
   templateUrl: './profile.component.html'
 })
 export class ProfileComponent {
-  details: UserDetails
+  details: TokenPayload
+
+
+
+  cred: TokenPayload = {
+    id: 0,
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: ""
+  };
+
 
   constructor(private auth: AuthenticationService, private route: Router) {}
 
@@ -22,6 +33,7 @@ export class ProfileComponent {
   }
 
   profile(){
+    
     this.route.navigate(['userDetails'])
     console.log('navigating to userdetails')
   }

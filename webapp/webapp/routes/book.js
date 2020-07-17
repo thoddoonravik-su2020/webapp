@@ -23,9 +23,11 @@ users.get('/seller/images/:id',(req,res)=>{
  
   const bookid = req.params.id;
 
-  statsd.increment('viewed book id' + bookid);
 
-  var imgs = [];
+  statsd.increment(`${bookid}`);
+
+
+ var imgs = [];
   const s3buckOp = (param, id) => {
       return s3.getObject(param).promise().then(x => {
 
@@ -122,14 +124,14 @@ users.post('/seller', (req, res) => {
                 });
                 res.json(register);
             };
-            promise.then(result)
+                      promise.then(result)
 
             promise.then(x=>{
             var post_addbook_query = new Date().getTime();
 
               var duration = (post_addbook_query - pre_addbook_query ) / 1000;
               statsd.timing("sql_addbook_update", duration);
-             })
+            }).then(result)
         }
     }
 
