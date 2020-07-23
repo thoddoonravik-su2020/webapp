@@ -8,6 +8,17 @@ import { Router } from '@angular/router'
 export class ProfileComponent {
   details: TokenPayload
 
+
+
+  cred: TokenPayload = {
+    id: 0,
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: ""
+  };
+
+
   constructor(private auth: AuthenticationService, private route: Router) {}
 
   ngOnInit() {
@@ -22,6 +33,7 @@ export class ProfileComponent {
   }
 
   profile(){
+    
     this.route.navigate(['userDetails'])
     console.log('navigating to userdetails')
   }
