@@ -7,11 +7,61 @@ const User = require('../model/User')
 const AWS = require('aws-sdk');
 const path = require('path');
 const IMAGE = require('../model/Cart')
+const { v1: uuidv1 } = require('uuid');
+const logger = require('../customlogger')
 
 users.use(cors())
 
 process.env.SECRET_KEY = 'secret'
 
+
+// password reset 
+users.post('/reset', (req, res) => {
+  const promise =  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+
+  const result = (authSuccess)=>{
+      if (authSuccess != null) {
+          logger.info(authSuccess);
+          
+          let body = {
+              "email" : authSuccess.dataValues.email,
+              "ownerId": authSuccess.dataValues.id,
+              "data": uuidv1(),
+              "domain":"keerthanaravislm@gmail.com"
+          }
+
+          var params = {
+              Message: JSON.stringify(body), /* required */
+              TopicArn: "arn:aws:sns:us-east-1:869787183235:webapp"
+          };
+
+          const publishTextPromise = new AWS.SNS({ apiVersion: '2010-03-31' }).publish(params).promise();
+
+          publishTextPromise.then(
+              function (data) {
+                  logger.info(data + "success");
+                  res.status(200);
+                  res.json("success");
+
+              }).catch(
+                  function (err) {
+                      logger.error(err + "error");
+                      res.status(500)
+                      res.json("fail");
+          });
+
+      } else {
+          logger.info("User Not Found")
+          res.json({ auth: false, message: "User Not Found" });
+      }
+  }
+
+  promise.then(result)
+})
 
 //POST
 users.post('/register', (req, res) => {
@@ -107,6 +157,8 @@ users.post('/login', (req, res) => {
       res.send('error: ' + err)
     })
 })
+
+
 
 
 //GET PROFILE 

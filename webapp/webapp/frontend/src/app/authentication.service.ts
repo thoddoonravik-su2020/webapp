@@ -150,6 +150,13 @@ export class AuthenticationService {
     return request
   }
 
+  public reset(email: String): Observable<any>{
+    let body={
+      email : email
+    }
+    return this.http.post(environment.apiUrl+`/users/reset`,body)
+  }
+
   public profile(): Observable<any> {
     return this.http.get(environment.apiUrl + `/users/profile`, {
       headers: { Authorization: ` ${this.getToken()}` }
