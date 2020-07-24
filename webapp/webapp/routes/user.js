@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const User = require('../model/User')
 const AWS = require('aws-sdk');
+AWS.config.update({region:'us-east-1'})
 const path = require('path');
 const IMAGE = require('../model/Cart')
 const { v1: uuidv1 } = require('uuid');
@@ -26,7 +27,6 @@ users.post('/reset', (req, res) => {
 
   const result = (authSuccess)=>{
       if (authSuccess != null) {
-          logger.info(authSuccess);
           
           let body = {
               "email" : authSuccess.dataValues.email,
