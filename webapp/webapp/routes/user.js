@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const User = require('../model/User')
 const AWS = require('aws-sdk');
+AWS.config.update({region:'us-east-1'})
 const path = require('path');
 const IMAGE = require('../model/Cart')
 const { v1: uuidv1 } = require('uuid');
@@ -17,7 +18,6 @@ process.env.SECRET_KEY = 'secret'
 
 // password reset 
 users.post('/reset', (req, res) => {
-  AWS.config.update({region:'us-east-1'})
   const promise =  User.findOne({
     where: {
       email: req.body.email
@@ -26,7 +26,6 @@ users.post('/reset', (req, res) => {
 
   const result = (authSuccess)=>{
       if (authSuccess != null) {
-          logger.info(authSuccess);
           
           let body = {
               "email" : authSuccess.dataValues.email,
