@@ -68,7 +68,7 @@ export class BookComponent {
 	      authors:'',
 	      quantity:0,
         PRICE:0
-      }                                                      
+      }                                                     
     });
 }
 

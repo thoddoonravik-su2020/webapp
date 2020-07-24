@@ -43,4 +43,19 @@ export class LoginComponent {
       }
     )
   }
+
+  resetPassword(){
+    var  em : string = this.credentials.email;
+    if(this.credentials.email == null || this.credentials.email == '' || em.length < 3){
+      alert("Please provide a valid email");
+    }else{
+      // Code to trigger email
+      this.auth.reset(em).subscribe(x=>{
+        alert("Mail has been sent to " + this.credentials.email + ". Please find the reset instructions in the mail"); 
+      })
+    
+    }
+  }
+
+
 }

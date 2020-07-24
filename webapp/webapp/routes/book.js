@@ -23,7 +23,6 @@ users.get('/seller/images/:id',(req,res)=>{
  
   const bookid = req.params.id;
 
-
   statsd.increment(`${bookid}`);
 
 
@@ -131,9 +130,10 @@ users.post('/seller', (req, res) => {
 
               var duration = (post_addbook_query - pre_addbook_query ) / 1000;
               statsd.timing("sql_addbook_update", duration);
+
             }).then(result)
+          }
         }
-    }
 
     isExist.then(check);
     
