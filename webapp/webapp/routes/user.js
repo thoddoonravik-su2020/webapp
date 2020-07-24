@@ -17,6 +17,7 @@ process.env.SECRET_KEY = 'secret'
 
 // password reset 
 users.post('/reset', (req, res) => {
+  AWS.config.update({region:'us-east-1'})
   const promise =  User.findOne({
     where: {
       email: req.body.email
