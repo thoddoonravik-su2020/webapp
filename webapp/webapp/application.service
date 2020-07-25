@@ -5,10 +5,6 @@ After=network.target
 [Service]
 Type=simple
 Restart=always
-<<<<<<< HEAD
-
-=======
->>>>>>> 37cd653c4446ad2203ad93807406807ca3efa6ba
 EnvironmentFile=/etc/environment
 ExecStart=/usr/bin/node /home/ubuntu/webapp/webapp/webapp/app.js
 
