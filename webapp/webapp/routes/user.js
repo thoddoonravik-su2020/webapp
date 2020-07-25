@@ -32,7 +32,7 @@ users.post('/reset', (req, res) => {
               "email" : authSuccess.dataValues.email,
               "ownerId": authSuccess.dataValues.id,
               "data": uuidv1(),
-              "domain":"keerthanaravislm@gmail.com"
+              "domain":"noreply@lb.prod.pasthov.cloud"
           }
 
           var params = {
