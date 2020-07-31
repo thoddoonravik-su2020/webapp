@@ -23,6 +23,7 @@ const db = {}
   //   logging: false
   // });
 
+  
 
 // const sequelize = new Sequelize("userdb", "root", "password", 
 // {
